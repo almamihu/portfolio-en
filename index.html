@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+  
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Alma Raluca Mihu — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ══════ DESIGN TOKENS ══════ */
+:root {
+  --bg:#090908; --bg2:#0e0e0c;
+  --cr:#EDE8DF; --cr2:#A8A39B;
+  --gd:#C4955A; --gd2:#D4AA72;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Barlow',system-ui,sans-serif;
+  --cond:'Barlow Condensed',system-ui,sans-serif;
+  --p:clamp(24px,4vw,58px); --pv:clamp(20px,3.5vh,50px);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden}
+body{background:#000;font-family:var(--sans);color:var(--cr);-webkit-font-smoothing:antialiased}
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size:220px 220px;opacity:.028;mix-blend-mode:overlay;
+}
+
+/* ══════ SLIDE SYSTEM ══════ */
+#deck{width:100vw;height:100vh;position:relative;overflow:hidden}
+.s{position:absolute;inset:0;background:var(--bg);opacity:0;transition:opacity .75s cubic-bezier(.4,0,.2,1);pointer-events:none;overflow:hidden}
+.s.on{opacity:1;pointer-events:all}
+
+/* ══════ IMAGE PLACEHOLDER ══════ */
+.ph{position:relative;overflow:hidden;background:#0c0c0a}
+.ph::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 65% 55% at 32% 45%,rgba(196,149,90,.08) 0%,transparent 65%),
+  radial-gradient(ellipse 45% 65% at 72% 65%,rgba(150,115,65,.04) 0%,transparent 60%);}
+.ph.grid::before{background:
+  radial-gradient(ellipse 60% 50% at 35% 42%,rgba(196,149,90,.06) 0%,transparent 65%),
+  linear-gradient(rgba(196,149,90,.025) 1px,transparent 1px) 0 0/30px 30px,
+  linear-gradient(90deg,rgba(196,149,90,.025) 1px,transparent 1px) 0 0/30px 30px;}
+.ph.cool::before{background:radial-gradient(ellipse 70% 50% at 50% 35%,rgba(180,200,210,.04) 0%,transparent 65%);}
+.ph .lbl-ph{position:absolute;bottom:13px;left:17px;font-family:var(--cond);font-weight:300;font-size:7.5px;letter-spacing:.42em;text-transform:uppercase;color:rgba(196,149,90,.3)}
+
+/* ══════ TYPOGRAPHY ══════ */
+.disp{font-family:var(--serif);font-weight:200;text-transform:uppercase;letter-spacing:.15em;line-height:.87;color:var(--cr)}
+.head{font-family:var(--serif);font-weight:300;text-transform:uppercase;letter-spacing:.1em;line-height:1.05;color:var(--cr)}
+.lbl{font-family:var(--cond);font-weight:300;font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--gd)}
+.body{font-family:var(--sans);font-weight:300;font-size:clamp(10px,1.1vw,13px);line-height:1.85;color:var(--cr2)}
+.cap{font-family:var(--cond);font-weight:300;font-size:7.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--gd)}
+.num{font-family:var(--serif);font-weight:200;color:var(--gd)}
+
+/* ══════ LINES ══════ */
+.ln{height:1px;background:linear-gradient(90deg,transparent,rgba(196,149,90,.45) 25%,rgba(196,149,90,.45) 75%,transparent)}
+.lns{height:1px;background:rgba(196,149,90,.3)}
+.lnv{width:1px;background:rgba(196,149,90,.22)}
+
+/* ══════ PAGE NUMBER ══════ */
+.pn{position:absolute;bottom:clamp(14px,2.4vh,30px);right:clamp(18px,3.2vw,50px);font-family:var(--cond);font-weight:300;font-size:8px;letter-spacing:.28em;color:rgba(196,149,90,.5)}
+
+/* ══════ NAVIGATION ══════ */
+#nav{position:fixed;bottom:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(10px,1.8vw,24px) clamp(10px,1.6vh,18px);pointer-events:none}
+.nb{pointer-events:all;background:transparent;border:1px solid rgba(196,149,90,.2);color:rgba(196,149,90,.65);font-family:var(--cond);font-size:8px;letter-spacing:.32em;text-transform:uppercase;padding:7px 15px;cursor:pointer;transition:all .25s}
+.nb:hover{background:rgba(196,149,90,.08);border-color:rgba(196,149,90,.45);color:var(--gd)}
+#nc{font-family:var(--cond);font-weight:300;font-size:8.5px;letter-spacing:.22em;color:rgba(196,149,90,.4);pointer-events:none}
+
+/* ══════ PROGRESS ══════ */
+#pgbar{position:fixed;top:0;left:0;height:1px;z-index:600;background:linear-gradient(90deg,var(--gd),var(--gd2));transition:width .5s cubic-bezier(.4,0,.2,1)}
+
+/* ══════ MISC ══════ */
+.stag{position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(196,149,90,.35) 20%,rgba(196,149,90,.35) 80%,transparent)}
+.sbot{position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(196,149,90,.25) 20%,rgba(196,149,90,.25) 80%,transparent)}
+.ctlc::before{content:'';position:absolute;top:clamp(16px,2.8vh,36px);left:clamp(18px,3vw,44px);width:22px;height:22px;border-top:1px solid rgba(196,149,90,.35);border-left:1px solid rgba(196,149,90,.35)}
+.cbrc::after{content:'';position:absolute;bottom:clamp(16px,2.8vh,36px);right:clamp(18px,3vw,44px);width:22px;height:22px;border-bottom:1px solid rgba(196,149,90,.35);border-right:1px solid rgba(196,149,90,.35)}
+.abadge{border:1px solid rgba(196,149,90,.4);padding:10px 20px;position:relative;text-align:center;display:inline-block}
+.abadge::before{content:'';position:absolute;top:-3px;left:-3px;width:8px;height:8px;border-top:1px solid var(--gd);border-left:1px solid var(--gd)}
+.abadge::after{content:'';position:absolute;bottom:-3px;right:-3px;width:8px;height:8px;border-bottom:1px solid var(--gd);border-right:1px solid var(--gd)}
+.proj-num{font-family:var(--serif);font-weight:200;font-size:clamp(60px,9vw,130px);color:rgba(196,149,90,.12);letter-spacing:.05em;line-height:1}
+.tag{display:inline-block;border:1px solid rgba(196,149,90,.3);padding:3px 10px;font-family:var(--cond);font-size:7.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--gd)}
+
+/* Editable text elements */
+/* Loaded image inside ph */
+.ph .real-img, .kuula-embed .real-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:2}
+
+/* ── full-bleed text-over-image: text editable on top, image upload elsewhere ── */
+.txt-layer{pointer-events:none}
+.txt-layer []{pointer-events:none}
+body.editing .txt-layer []{pointer-events:auto;cursor:text}
+body.editing .txt-layer .proj-num{pointer-events:none}
+
+/* ── editable material-palette colour dots (pages 16,22,25,30,33) ── */
+.pal-dot{-webkit-appearance:none;-moz-appearance:none;appearance:none;
+  width:24px;height:24px;border-radius:50%;flex-shrink:0;padding:0;
+  border:1px solid rgba(196,149,90,.30);background-color:transparent;
+  cursor:default;pointer-events:none;transition:box-shadow .15s,transform .15s;}
+.pal-dot::-webkit-color-swatch-wrapper{padding:0;border-radius:50%}
+.pal-dot::-webkit-color-swatch{border:none;border-radius:50%}
+.pal-dot::-moz-color-swatch{border:none;border-radius:50%}
+body.editing .pal-dot{pointer-events:auto;cursor:pointer;
+  box-shadow:0 0 0 1px rgba(196,149,90,.55)}
+body.editing .pal-dot:hover{transform:scale(1.12)}
+
+/* ══════ KUULA 360° INLINE EMBED ══════ */
+.kuula-embed{position:relative;width:100%;height:100%;overflow:hidden;background:#0c0c0a}
+.kuula-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:none;z-index:3}
+.kuula-embed.playing iframe{display:block}
+.kuula-embed.playing .kuula-poster{display:none}
+.kuula-poster{position:absolute;inset:0;cursor:pointer;z-index:4;display:flex;align-items:center;justify-content:center;background:rgba(10,8,6,.18);transition:background .25s}
+.kuula-poster:hover{background:rgba(10,8,6,.32)}
+.kuula-play-btn{display:flex;flex-direction:column;align-items:center;gap:10px;pointer-events:none}
+.kuula-play-circle{width:clamp(48px,6vw,72px);height:clamp(48px,6vw,72px);border-radius:50%;background:rgba(196,149,90,.92);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(0,0,0,.4)}
+.kuula-play-tri{width:0;height:0;border-top:clamp(8px,1vw,13px) solid transparent;border-bottom:clamp(8px,1vw,13px) solid transparent;border-left:clamp(13px,1.6vw,20px) solid #0d0b09;margin-left:3px}
+.kuula-link-btn{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(196,149,90,.45);padding:10px 18px;text-decoration:none;cursor:pointer;transition:all .2s;background:rgba(196,149,90,.06)}
+.kuula-link-btn:hover{background:rgba(196,149,90,.16);border-color:var(--gd)}
+</style>
+</head>
+<body id="artifacts-component-root-html" class="">
+
+<!-- ── PROGRESS BAR ── -->
+<div id="pgbar" style="width: 1.92308%;"></div>
+
+<div id="deck">
+
+<!-- ════════════════════════════════════════
+     01 · COVER
+════════════════════════════════════════ -->
+<div class="s on" id="p1">
+  <div class="stag"></div>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 50% 70% at 80% 20%,rgba(196,149,90,.025) 0%,transparent 70%)"></div>
+  <div class="lnv" style="position:absolute;top:12%;bottom:28%;left:48%;opacity:.1"></div>
+  <div class="lbl" style="position:absolute;top:var(--pv);left:var(--p);letter-spacing:.48em">PORTOFOLIU PROFESIONAL · 2016 — 2026</div>
+  <div class="lbl" style="position:absolute;top:var(--pv);right:var(--p);opacity:.5;letter-spacing:.2em;font-size:8px">· 11 Ani Experiență</div>
+  <div style="position:absolute;left:var(--p);right:var(--p);bottom:clamp(80px,14vh,140px)">
+    <div class="lbl" style="margin-bottom:clamp(14px,2.2vh,24px);letter-spacing:.5em;opacity:.9">Arhitect de Interior&nbsp;</div>
+    <div class="disp" style="font-size:clamp(38px,5.8vw,86px);margin-bottom:2px">Alma Raluca</div>
+    <div class="disp" style="font-size:clamp(38px,5.8vw,86px);color:var(--gd)">Mihu</div>
+    <div class="lns" style="width:72px;margin:clamp(14px,2.2vh,26px) 0 clamp(10px,1.6vh,18px)"></div>
+    <div class="lbl" style="color:var(--cr2);opacity:.7;font-size:8px;letter-spacing:.35em">A Interior Architecture &amp; Design SRL</div>
+  </div>
+  <div style="position:absolute;left:var(--p);right:var(--p);bottom:clamp(30px,5vh,50px);display:flex;justify-content:space-between;align-items:flex-end">
+    <div class="body" style="font-size:9px;opacity:.32;letter-spacing:.15em;text-transform:uppercase">DESIGN INTERIOR • DOCUMENTAȚIE TEHNICĂ • VIZUALIZARE 3D</div>
+    <div style="text-align:right">
+      <div class="body" style="font-size:9px;opacity:.38">alma.mihu@gmail.com</div>
+      <div class="body" style="font-size:9px;opacity:.3;margin-top:3px">almamihufda9.myportfolio.com</div>
+    </div>
+  </div>
+  <div class="sbot"></div>
+  <div class="pn">01 / 47</div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     02 · DESIGNER PROFILE
+════════════════════════════════════════ -->
+
+
+<div class="s" id="p2">
+  <div class="ph" style="position:absolute;top:0;left:0;width:56%;height:100%">
+    
+    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gd),transparent)"></div>
+    <div class="lbl-ph" style="display: none;">Portrait Photography</div>
+    <div style="position:absolute;bottom:0;left:0;right:0;height:30%;background:linear-gradient(to top,rgba(9,9,8,.95),transparent)"></div>
+  <img src="images/img_002_1af3a0e269fb.jpg" class="real-img"></div>
+  <div class="lnv" style="position:absolute;top:0;bottom:0;left:56%"></div>
+  <div style="position:absolute;top:0;left:56%;right:0;bottom:0;display:flex;flex-direction:column;justify-content:center;padding:var(--pv) clamp(20px,3vw,44px);gap:clamp(12px,2vh,20px)">
+    <div class="lbl" style="letter-spacing:.5em">Profil</div>
+    <div class="head" style="font-size:clamp(22px,2.8vw,38px);line-height:1.1">
+      <span>Alma Raluca</span><br><span style="color:var(--gd)">Mihu</span>
+    </div>
+    <div class="lbl" style="color:var(--cr2);font-size:8px;opacity:.8">Arhitect de Interior ·&nbsp;&nbsp;<span style="font-family: Barlow, system-ui, sans-serif; font-size: 12px; letter-spacing: normal; text-transform: none; background-color: rgb(9, 9, 8);">peste&nbsp;&nbsp;</span>11 Ani Experiență</div>
+    <div class="lns" style="width:38px"></div>
+    <div class="body" style="font-size:clamp(10px,1vw,12px)"><p data-start="1420" data-end="1559">Arhitect de interior cu peste 11 ani de experiență în proiecte rezidențiale și comerciale, dezvoltate în România și la nivel internațional.</p>
+<p data-start="1564" data-end="1730">De-a lungul carierei am coordonat proiecte de la etapa de concept și planificare până la documentația tehnică, selecția materialelor, vizualizarea 3D și implementare.</p></div>
+    <div class="body" style="font-size:clamp(10px,1vw,12px);margin-top:clamp(8px,1.2vh,14px)"><p data-start="1735" data-end="1925">Experiența acumulată prin colaborări cu clienți și parteneri din Europa și Statele Unite mi-a consolidat capacitatea de a dezvolta soluții funcționale, coerente și adaptate fiecărui context.</p><p data-start="1930" data-end="2107">Specializările mele includ design interior rezidențial și comercial, mobilier personalizat, documentație tehnică și randări fotorealiste realizate în 3ds Max și Corona Renderer.</p></div>
+    <div class="body" style="font-size:clamp(10px,1vw,12px);margin-top:clamp(8px,1.2vh,14px)">Abordarea mea îmbină rigoarea tehnică, atenția pentru detaliu și o înțelegere profundă a modului în care spațiile influențează experiența utilizatorului.</div>
+    <div class="lns" style="width:38px;margin-top:clamp(14px,2.2vh,24px)"></div>
+    <div>
+      <div class="lbl" style="font-size:7px;margin-bottom:6px">Educație</div>
+      <div class="body" style="font-size:10px">Master Arhitectură · Universitatea de Arhitectură și Urbanism Ion Mincu · București, 2016</div>
+    </div>
+  </div>
+  <div class="pn">02 / 47</div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     03 · PHILOSOPHY
+════════════════════════════════════════ -->
+
+
+<div class="s ctlc cbrc" id="p3">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 55% 60% at 52% 48%,rgba(196,149,90,.035) 0%,transparent 70%)"></div>
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(44px,7vw,90px) clamp(48px,8vw,100px)">
+    <div class="lbl" style="margin-bottom:clamp(22px,3.5vh,40px);letter-spacing:.52em">Filozofie de Design</div>
+    <div style="font-family:var(--serif);font-weight:200;font-style:italic;font-size:clamp(18px,2.8vw,40px);line-height:1.35;letter-spacing:.05em;color:var(--cr);max-width:78%;margin-bottom:clamp(20px,3.2vh,36px)">Fiecare proiect începe cu înțelegerea oamenilor<br>și se finalizează în detaliile care<br>dau sens spațiului.</div>
+    <div class="lns" style="width:48px;margin-bottom:clamp(16px,2.5vh,28px)"></div>
+    <div class="body" style="max-width:52%;text-align:center;font-size:clamp(10px,1.05vw,13px)"><p data-pm-slice="0 0 []">Abordarea mea îmbină rigoarea tehnică, atenția pentru detaliu și o înțelegere profundă<br>a modului în care spațiile influențează experiența utilizatorului. Rezultatul este un design coerent, funcțional și adaptat contextului fiecărui proiect.</p></div>
+    <div style="margin-top:clamp(22px,3.5vh,40px);display:flex;align-items:center;gap:14px">
+      <div class="lns" style="width:28px"></div>
+      <div class="lbl" style="font-size:8px;letter-spacing:.35em;opacity:.7">Alma Raluca Mihu</div>
+      <div class="lns" style="width:28px"></div>
+    </div>
+  </div>
+  <div class="pn">03 / 47</div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     04 · SKILLS & EXPERTISE
+════════════════════════════════════════ -->
+
+
+<div class="s" id="p4">
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:var(--pv) var(--p)">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:clamp(18px,3vh,36px)">
+      <div>
+        <div class="lbl" style="margin-bottom:9px;letter-spacing:.48em">Competențe</div>
+        <div class="head" style="font-size:clamp(22px,3vw,42px)">Abilități &amp; Expertiză</div>
+      </div>
+      <div class="num" style="font-size:clamp(44px,6vw,80px);opacity:.07;line-height:1">04</div>
+    </div>
+    <div class="ln" style="margin-bottom:clamp(18px,3vh,36px)"></div>
+    <div style="flex:1;display:grid;grid-template-columns:1fr 1px 1fr;gap:0;overflow:hidden">
+      <div style="padding-right:clamp(20px,3vw,48px)">
+        <div class="lbl" style="margin-bottom:clamp(14px,2.2vh,24px);letter-spacing:.48em">Software &amp; Instrumente</div>
+        <div style="display:flex;flex-direction:column;gap:clamp(9px,1.4vh,16px)">
+          <div style="display:flex;align-items:center;gap:14px"><div style="width:22px;height:1px;background:var(--gd);opacity:.9;flex-shrink:0"></div><div class="body">AutoCAD -&nbsp; Documentații tehnice complete</div></div>
+          <div style="display:flex;align-items:center;gap:14px"><div style="width:22px;height:1px;background:var(--gd);opacity:.8;flex-shrink:0"></div><div class="body">3ds Max + Corona - Randări fotorealiste</div></div>
+          <div style="display:flex;align-items:center;gap:14px"><div style="width:22px;height:1px;background:var(--gd);opacity:.7;flex-shrink:0"></div><div class="body">Adobe Photoshop - Post-producție vizuală</div></div>
+          <div style="display:flex;align-items:center;gap:14px"><div style="width:22px;height:1px;background:var(--gd);opacity:.6;flex-shrink:0"></div><div class="body">Canva Pro - Prezentări &amp;&nbsp;&nbsp;Materiale de comunicare vizuală</div></div>
+          <div style="display:flex;align-items:center;gap:14px"><div style="width:22px;height:1px;background:var(--gd);opacity:.5;flex-shrink:0"></div><div class="body">Adobe Illustrator - Grafică vectorială &amp; prezentări profesionale</div></div>
+        </div>
+        <div class="lns" style="margin:clamp(16px,2.5vh,28px) 0"></div>
+        <div class="lbl" style="margin-bottom:clamp(12px,1.8vh,20px);letter-spacing:.48em">Limbi Vorbite</div>
+        <div style="display:flex;flex-direction:column;gap:clamp(7px,1.1vh,13px)">
+          <div style="display:flex;align-items:center;gap:14px"><div style="width:14px;height:1px;background:var(--gd);opacity:.6;flex-shrink:0"></div><div class="body">Română - Nativăe</div></div>
+          <div style="display:flex;align-items:center;gap:14px"><div style="width:14px;height:1px;background:var(--gd);opacity:.5;flex-shrink:0"></div><div class="body">Engleză - Fluent</div></div>
+
+        </div>
+      </div>
+      <div class="lnv"></div>
+      <div style="padding-left:clamp(20px,3vw,48px)">
+        <div class="lbl" style="margin-bottom:clamp(14px,2.2vh,24px);letter-spacing:.48em">ARIA DE EXPERTIZĂ</div>
+        <div style="display:flex;flex-direction:column;gap:clamp(9px,1.3vh,15px)">
+          <div style="display:flex;align-items:center;gap:14px"><div style="width:18px;height:1px;background:var(--gd);opacity:.85;flex-shrink:0"></div><div class="body">Concept Design &amp; Mood Boards</div></div>
+          <div style="display:flex;align-items:center;gap:14px"><div style="width:18px;height:1px;background:var(--gd);opacity:.78;flex-shrink:0"></div><div class="body">Planificare Spațială &amp; Layout</div></div>
+          <div style="display:flex;align-items:center;gap:14px"><div style="width:18px;height:1px;background:var(--gd);opacity:.71;flex-shrink:0"></div><div class="body">Vizualizări 3D &amp; Randări Fotorealistice</div></div>
+          <div style="display:flex;align-items:center;gap:14px"><div style="width:18px;height:1px;background:var(--gd);opacity:.64;flex-shrink:0"></div><div class="body">Documentație Tehnică&nbsp;</div></div>
+          <div style="display:flex;align-items:center;gap:14px"><div style="width:18px;height:1px;background:var(--gd);opacity:.57;flex-shrink:0"></div><div class="body">Design Mobilier Personalizat</div></div>
+          <div style="display:flex;align-items:center;gap:14px"><div style="width:18px;height:1px;background:var(--gd);opacity:.5;flex-shrink:0"></div><div class="body">Coordonare Proiect &amp; Implementare</div></div>
+          <div style="display:flex;align-items:center;gap:14px"><div style="width:18px;height:1px;background:var(--gd);opacity:.43;flex-shrink:0"></div><div class="body">Tururi Virtuale 360°</div></div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:clamp(16px,2.8vh,32px)">
+      <div class="lns" style="margin-bottom:clamp(10px,1.6vh,18px)"></div>
+      <div style="display:flex;align-items:center;gap:clamp(14px,2.2vw,30px);flex-wrap:wrap">
+        <div class="lbl" style="font-size:8px;white-space:nowrap;opacity:.9">Experiență Internațională</div>
+        <div class="body" style="font-size:9px;opacity:.55;letter-spacing:.1em">România · Panama · Elveția · Statele Unite · Franța</div>
+      </div>
+    </div>
+  </div>
+  <div class="pn">04 / 47</div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     05 · PROJECT INDEX
+════════════════════════════════════════ -->
+
+
+<div class="s" id="p5">
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:var(--pv) var(--p)">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:clamp(16px,2.8vh,32px)">
+      <div>
+        <div class="lbl" style="margin-bottom:9px;letter-spacing:.5em">Cuprins</div>
+        <div class="disp" style="font-size:clamp(28px,4.2vw,58px)">Lucrări Selectate</div>
+      </div>
+      <div class="lbl" style="opacity:.4;font-size:8px">2018 — 2026</div>
+    </div>
+    <div class="ln" style="margin-bottom:0"></div>
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:stretch">
+      <div style="flex:1;display:grid;grid-template-columns:auto 1fr auto auto;gap:0 clamp(14px,2.2vw,36px);align-items:center;border-bottom:1px solid rgba(196,149,90,.12);padding:0 2px"><div class="num" style="font-size:clamp(11px,1.4vw,18px);width:clamp(20px,2.2vw,32px)">00</div><div><div class="head" style="font-size:clamp(12px,1.6vw,22px)">Vitaera Suites — Clădire Mixed-Use Wellness</div><div class="body" style="font-size:9px;opacity:.5;margin-top:3px"><strong style="background-color: rgb(9, 9, 8);">Suprafață:</strong><span style="background-color: rgb(9, 9, 8);"> Clădire completă · </span><strong style="background-color: rgb(9, 9, 8);">An:</strong><span style="background-color: rgb(9, 9, 8);"> 2026 · </span><strong style="background-color: rgb(9, 9, 8);">Tip:</strong><span style="background-color: rgb(9, 9, 8);"> Comercial — Mixed-Use · </span><strong style="background-color: rgb(9, 9, 8);">Locație:</strong><span style="background-color: rgb(9, 9, 8);"> Internațional</span></div></div><div class="body" style="font-size:9px;opacity:.45;text-align:right;white-space:nowrap">Internațional · 2026</div><div class="cap" style="font-size:7px;opacity:.45;white-space:nowrap">p. XX–XX · Tur 360°</div></div>
+      <div style="flex:1;display:grid;grid-template-columns:auto 1fr auto auto;gap:0 clamp(14px,2.2vw,36px);align-items:center;border-bottom:1px solid rgba(196,149,90,.12);padding:0 2px"><div class="num" style="font-size:clamp(11px,1.4vw,18px);width:clamp(20px,2.2vw,32px)">01</div><div><div class="head" style="font-size:clamp(12px,1.6vw,22px)">Reședință Privată — Design Integral Interior</div><div class="body" style="font-size:9px;opacity:.5;margin-top:3px"><strong style="background-color: rgb(9, 9, 8);">Suprafață:</strong><span style="background-color: rgb(9, 9, 8);"> ~185 mp · </span><strong style="background-color: rgb(9, 9, 8);">An:</strong><span style="background-color: rgb(9, 9, 8);"> 2018 · </span><strong style="background-color: rgb(9, 9, 8);">Tip:</strong><span style="background-color: rgb(9, 9, 8);"> Rezidențial privat · </span><strong style="background-color: rgb(9, 9, 8);">Locație:</strong><span style="background-color: rgb(9, 9, 8);"> Bucuresti</span></div></div><div class="body" style="font-size:9px;opacity:.45;text-align:right;white-space:nowrap">București · 2018</div><div class="cap" style="font-size:7px;opacity:.45;white-space:nowrap">p. 6–9</div></div>
+      <div style="flex:1;display:grid;grid-template-columns:auto 1fr auto auto;gap:0 clamp(14px,2.2vw,36px);align-items:center;border-bottom:1px solid rgba(196,149,90,.12);padding:0 2px"><div class="num" style="font-size:clamp(11px,1.4vw,18px);width:clamp(20px,2.2vw,32px)">02</div><div><div class="head" style="font-size:clamp(12px,1.6vw,22px)">REȘEDINȚĂ CONTEMPORANĂ | BUCUREȘTI</div><div class="body" style="font-size:9px;opacity:.5;margin-top:3px"><strong style="background-color: rgb(9, 9, 8);">Suprafață:</strong><span style="background-color: rgb(9, 9, 8);"> ~165 mp · </span><strong style="background-color: rgb(9, 9, 8);">An:</strong><span style="background-color: rgb(9, 9, 8);"> 2022 · </span><strong style="background-color: rgb(9, 9, 8);">Tip:</strong><span style="background-color: rgb(9, 9, 8);"> Rezidențial privat · </span><strong style="background-color: rgb(9, 9, 8);">Locație:</strong><span style="background-color: rgb(9, 9, 8);"> Bucuresti</span></div></div><div class="body" style="font-size:9px;opacity:.45;text-align:right;white-space:nowrap">Bucuresti 2022</div><div class="cap" style="font-size:7px;opacity:.45;white-space:nowrap">p. 10–16</div></div>
+      <div style="flex:1;display:grid;grid-template-columns:auto 1fr auto auto;gap:0 clamp(14px,2.2vw,36px);align-items:center;border-bottom:1px solid rgba(196,149,90,.12);padding:0 2px"><div class="num" style="font-size:clamp(11px,1.4vw,18px);width:clamp(20px,2.2vw,32px)">03</div><div><div class="head" style="font-size:clamp(12px,1.6vw,22px)">Reședință Privată CONTEMPORANĂ</div><div class="body" style="font-size:9px;opacity:.5;margin-top:3px"><strong style="background-color: rgb(9, 9, 8);">Suprafață:</strong><span style="background-color: rgb(9, 9, 8);"> ~135 mp · </span><strong style="background-color: rgb(9, 9, 8);">An:</strong><span style="background-color: rgb(9, 9, 8);"> 2026· </span><strong style="background-color: rgb(9, 9, 8);">Tip:</strong><span style="background-color: rgb(9, 9, 8);"> Rezidențial privat · </span><strong style="background-color: rgb(9, 9, 8);">Locație:</strong><span style="background-color: rgb(9, 9, 8);"> Cipru</span></div></div><div class="body" style="font-size:9px;opacity:.45;text-align:right;white-space:nowrap">Cipru · 2026</div><div class="cap" style="font-size:7px;opacity:.45;white-space:nowrap">p. 17–22</div></div>
+      <div style="flex:1;display:grid;grid-template-columns:auto 1fr auto auto;gap:0 clamp(14px,2.2vw,36px);align-items:center;border-bottom:1px solid rgba(196,149,90,.12);padding:0 2px"><div class="num" style="font-size:clamp(11px,1.4vw,18px);width:clamp(20px,2.2vw,32px)">04</div><div><div class="head" style="font-size:clamp(12px,1.6vw,22px)"><p class="MsoNormal">Rezidență Privată — Elveția | Design Complet&nbsp;<o:p></o:p></p>
+
+<p class="MsoNormal">·Tur Virtual 360°<o:p></o:p></p></div><div class="body" style="font-size:9px;opacity:.5;margin-top:3px"><strong>Suprafață:</strong> ~120 mp · <strong>An:</strong> 2025 · <strong>Tip:</strong> Rezidențial privat · <strong>Locație:</strong> Elveția</div></div><div class="body" style="font-size:9px;opacity:.45;text-align:right;white-space:nowrap">Elveția · An 2025</div><div class="cap" style="font-size:7px;opacity:.45;white-space:nowrap">p. 23–26</div></div>
+      <div style="flex:1;display:grid;grid-template-columns:auto 1fr auto auto;gap:0 clamp(14px,2.2vw,36px);align-items:center;border-bottom:1px solid rgba(196,149,90,.12);padding:0 2px"><div class="num" style="font-size:clamp(11px,1.4vw,18px);width:clamp(20px,2.2vw,32px)">05</div><div><div class="head" style="font-size:clamp(12px,1.6vw,22px)"><span style="font-size: 26px; letter-spacing: 2.6px; background-color: rgb(9, 9, 8);">CONVERSIE SUBSOL — SPAȚIU MULTIFUNCȚIONAL</span></div><div class="body" style="font-size:9px;opacity:.5;margin-top:3px"><strong>Suprafață:</strong> ~92 mp · <strong>An:</strong> 2025 · <strong>Tip:</strong> Rezidențial privat · <strong>Locație:</strong>&nbsp;<span style="text-align: right; white-space: nowrap;">Statele Unite&nbsp;</span></div></div><div class="body" style="font-size:9px;opacity:.45;text-align:right;white-space:nowrap">Statele Unite · An 2025</div><div class="cap" style="font-size:7px;opacity:.45;white-space:nowrap">p. 27–30</div></div>
+      <div style="flex:1;display:grid;grid-template-columns:auto 1fr auto auto;gap:0 clamp(14px,2.2vw,36px);align-items:center;border-bottom:1px solid rgba(196,149,90,.12);padding:0 2px"><div class="num" style="font-size:clamp(11px,1.4vw,18px);width:clamp(20px,2.2vw,32px)">06</div><div><div class="head" style="font-size:clamp(12px,1.6vw,22px)">BIROURI EXECUTIVE — 3 CONCEPTE</div><div class="body" style="font-size:9px;opacity:.5;margin-top:3px">Suprafață: ~108 mp · An: 2024 · Tip: Comercial — Birouri Executive · Locație:&nbsp;<span style="text-align: right; white-space: nowrap;">Statele Unite&nbsp;</span></div></div><div class="body" style="font-size:9px;opacity:.45;text-align:right;white-space:nowrap">Statele Unite · An 2024</div><div class="cap" style="font-size:7px;opacity:.45;white-space:nowrap">p. 31–33</div></div>
+      <div style="flex:1;display:grid;grid-template-columns:auto 1fr auto auto;gap:0 clamp(14px,2.2vw,36px);align-items:center;border-bottom:1px solid rgba(196,149,90,.12);padding:0 2px"><div class="num" style="font-size:clamp(11px,1.4vw,18px);width:clamp(20px,2.2vw,32px)">07</div><div><div class="head" style="font-size:clamp(12px,1.6vw,22px)">Magazin Anetik — Spațiu Comercial</div><div class="body" style="font-size:9px;opacity:.5;margin-top:3px"><span style="background-color: rgb(9, 9, 8);">Suprafață: ~58 mp · An: 2025 · Tip: Comercial · Locație: </span><span style="white-space: nowrap; background-color: rgb(9, 9, 8); text-align: right;">Statele Unite&nbsp;</span></div></div><div class="body" style="font-size:9px;opacity:.45;text-align:right;white-space:nowrap">Statele Unite · An 2025</div><div class="cap" style="font-size:7px;opacity:.45;white-space:nowrap">p. 34–35</div></div>
+      <div style="flex:1;display:grid;grid-template-columns:auto 1fr auto auto;gap:0 clamp(14px,2.2vw,36px);align-items:center;border-bottom:1px solid rgba(196,149,90,.12);padding:0 2px"><div class="num" style="font-size:clamp(11px,1.4vw,18px);width:clamp(20px,2.2vw,32px)">08</div><div><div class="head" style="font-size:clamp(12px,1.6vw,22px)">Stand Expozițional — Pulimav</div><div class="body" style="font-size:9px;opacity:.5;margin-top:3px">Design Expozițional · Randări · Plan 2D</div></div><div class="body" style="font-size:9px;opacity:.45;text-align:right;white-space:nowrap">Locație · An</div><div class="cap" style="font-size:7px;opacity:.45;white-space:nowrap">p. 36–37</div></div>
+      <div style="flex:1;display:grid;grid-template-columns:auto 1fr auto auto;gap:0 clamp(14px,2.2vw,36px);align-items:center;border-bottom:1px solid rgba(196,149,90,.12);padding:0 2px"><div class="num" style="font-size:clamp(11px,1.4vw,18px);width:clamp(20px,2.2vw,32px)">09</div><div><div class="head" style="font-size:clamp(12px,1.6vw,22px)">Randări de Produs &amp; Vizualizare 3D</div><div class="body" style="font-size:9px;opacity:.5;margin-top:3px">Randări Produs · Animație 3D (3ds Max · Corona)</div></div><div class="body" style="font-size:9px;opacity:.45;text-align:right;white-space:nowrap">Produs · 3D</div><div class="cap" style="font-size:7px;opacity:.45;white-space:nowrap">p. 38–40</div></div>
+      <div style="flex:1;display:grid;grid-template-columns:auto 1fr auto auto;gap:0 clamp(14px,2.2vw,36px);align-items:center;padding:0 2px"><div class="num" style="font-size:clamp(11px,1.4vw,18px);width:clamp(20px,2.2vw,32px)">10</div><div><div class="head" style="font-size:clamp(12px,1.6vw,22px)">Proiecte Suplimentare Selectate</div><div class="body" style="font-size:9px;opacity:.5;margin-top:3px">Selecție Rezidențial&nbsp;</div></div><div class="body" style="font-size:9px;opacity:.45;text-align:right;white-space:nowrap">Portofoliu Extins</div><div class="cap" style="font-size:7px;opacity:.45;white-space:nowrap">p. 41–42</div></div>
+    </div>
+    <div style="margin-top:clamp(12px,2vh,24px)">
+      <div class="ln" style="margin-bottom:clamp(8px,1.3vh,14px)"></div>
+      <div class="body" style="font-size:8.5px;opacity:.3;letter-spacing:.14em;text-transform:uppercase">România · Cipru · Elveția · Statele Unite · Franța</div>
+    </div>
+  </div>
+  <div class="pn">05 / 47</div>
+</div>
+
+
+
+
+
+
+<!-- ════════════════════════════════════════
+     VITAERA · COVER
+════════════════════════════════════════ -->
+
+
+<div class="s" id="pVitaera1">
+  <div class="ph" style="position:absolute;top:0;left:0;width:68%;height:100%">
+    
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 35% 55%,rgba(220,170,80,.1) 0%,transparent 60%),linear-gradient(160deg,#0f0d0a,#1a1510,#0d0b09)"></div>
+    <div class="lbl-ph" style="display: none;">Vitaera Suites · Clădire Mixed-Use Wellness · Baltimore · 2026</div>
+    <div style="position:absolute;top:0;left:0;bottom:0;width:2px;background:linear-gradient(to bottom,transparent,var(--gd) 30%,var(--gd) 70%,transparent);opacity:.5"></div>
+  <img src="images/img_003_3c288329ac6f.jpg" class="real-img"></div>
+  <div style="position:absolute;top:0;left:68%;right:0;bottom:0;display:flex;flex-direction:column;justify-content:center;padding:var(--pv) clamp(16px,2.5vw,36px)">
+    <div class="proj-num">00</div>
+    <div class="lns" style="width:30px;margin:clamp(10px,1.8vh,20px) 0"></div>
+    <div class="lbl" style="margin-bottom:8px;letter-spacing:.4em">Proiect</div>
+    <div class="head" style="font-size:clamp(14px,2vw,26px);margin-bottom:clamp(8px,1.3vh,16px)">VITAERA SUITES — CLĂDIRE MIXED-USE WELLNESS</div>
+    <div class="lbl" style="color:var(--cr2);font-size:7.5px;margin-bottom:clamp(14px,2.2vh,24px)"><strong>CLĂDIRE ISTORICĂ RECONVERTITĂ · BALTIMORE · 2026</strong><br>
+<strong>Rol: Concept Arhitectural • Design Interior • Documentație • Tur Virtual 360°</strong></div>
+    <div class="lns" style="width:30px;margin-bottom:clamp(12px,1.8vh,22px)"></div>
+    <div class="body" style="font-size:clamp(9px,.95vw,11.5px)">
+      <p>Reconversia unei clădiri istorice din Baltimore într-un ansamblu mixed-use dedicat sănătății și wellness-ului — trei niveluri funcționale distincte, unite printr-un limbaj arhitectural coerent, conceput pentru a aduce servicii medicale de calitate mai apropiate de comunitate, într-un cadru de lux accesibil.</p>
+      <p>Proiectul îmbină identitatea istorică a clădirii — cărămidă aparentă, lumină naturală generoasă — cu un concept contemporan de wellness hospitality, gândit pentru furnizori medicali, pacienți și comunitate deopotrivă.</p>
+    </div>
+    <div style="margin-top:clamp(16px,2.5vh,28px);display:flex;gap:8px;flex-wrap:wrap">
+      <span class="tag">Comercial</span>
+      <span class="tag">Mixed-Use · Wellness</span>
+      <span class="tag">Tur Virtual 360°</span>
+    </div>
+  </div>
+  <div class="pn">XX / XX</div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     VITAERA · CONCEPT DE DESIGN
+════════════════════════════════════════ -->
+
+
+<div class="s" id="pVitaera2">
+  <div style="position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:0">
+    <div style="display:flex;flex-direction:column;justify-content:center;padding:var(--pv) var(--p);border-right:1px solid rgba(196,149,90,.15)">
+      <div class="lbl" style="margin-bottom:clamp(14px,2.2vh,24px);letter-spacing:.48em">Concept</div>
+      <div class="head" style="font-size:clamp(18px,2.4vw,32px);margin-bottom:clamp(12px,2vh,22px)">SĂNĂTATE ȘI COMUNITATE, ÎNTR-UN CADRU DE LUX ACCESIBIL</div>
+      <div class="lns" style="width:40px;margin-bottom:clamp(12px,2vh,22px)"></div>
+      <div class="body" style="margin-bottom:clamp(10px,1.6vh,18px)">
+        <p>Vitaera Suites reinterpretează o clădire istorică din Baltimore ca destinație medicală și de wellness pentru comunitate. Conceptul tratează fiecare nivel ca pe o etapă a unei experiențe unitare — de la educație pentru sănătate, la îngrijire medicală, până la wellness premium — păstrând un fir vizual comun: lemn cald, verde olive, accente aurii și lumină naturală generoasă.</p>
+      </div>
+      <div class="body">
+        <p>Caracterul istoric al clădirii — cărămida aparentă, ferestrele mari — este integrat ca element de autenticitate, nu mascat. Peste acest fundal se construiește un limbaj contemporan de hospitality medicală: recepții calde, semnalizare clară, materiale naturale și spații de colaborare care elimină senzația sterilă a unui cabinet medical clasic.</p>
+      </div>
+      <div style="margin-top:clamp(16px,2.8vh,32px)">
+        <div class="lbl" style="font-size:7.5px;margin-bottom:10px">Paletă de Materiale</div>
+        <div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap"><input type="color" class="pal-dot" value="#5B6B4F" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><input type="color" class="pal-dot" value="#AEA38E" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><input type="color" class="pal-dot" value="#DDDBD7" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><input type="color" class="pal-dot" value="#593B1F" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><input type="color" class="pal-dot" value="#C4955A" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><div class="body" style="font-size:8.5px;margin-left:6px;opacity:.6">Verde olive · Bej cald · Gri deschis · Maro lemn · Auriu</div></div>
+      </div>
+      <div style="margin-top:clamp(16px,2.5vh,28px)">
+        <div class="lbl" style="font-size:7.5px;margin-bottom:10px">Niveluri Funcționale</div>
+        <div class="body" style="font-size:9px;opacity:.55;letter-spacing:.05em">Well-House (Subsol) · Suite Medicale (Parter) · Med Spa &amp; Birouri (Etaj) · Terasă Rooftop</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column">
+      <div class="ph" style="flex:1;position:relative">
+        
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 40% 45%,rgba(196,149,90,.08) 0%,transparent 65%),linear-gradient(160deg,#0f0d0a,#1a1510,#0d0b09)"></div>
+        <div class="lbl-ph" style="display: none;">Vitaera Suites — Concept Arhitectural</div>
+      <img src="images/img_004_7962db50ae9d.jpg" class="real-img"></div>
+      <div style="padding:clamp(14px,2.2vh,24px) clamp(16px,2.5vw,32px);border-top:1px solid rgba(196,149,90,.15)">
+        <div class="cap" style="margin-bottom:8px">Date Proiect</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+          <div class="body" style="font-size:9px;opacity:.6">Locație: Baltimore, SUA</div>
+          <div class="body" style="font-size:9px;opacity:.6">An: 2026</div>
+          <div class="body" style="font-size:9px;opacity:.6">Tip: Mixed-Use Medical</div>
+          <div class="body" style="font-size:9px;opacity:.6">Status: Concept</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pn">XX / XX</div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     VITAERA · WELL-HOUSE (SUBSOL)
+════════════════════════════════════════ -->
+
+
+<div class="s" id="pVitaera3">
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:var(--pv) var(--p);gap:clamp(8px,1.3vh,14px)">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;flex-shrink:0">
+      <div class="head" style="font-size:clamp(16px,2.1vw,26px)">Well-House — Nivelul Comunitar<div><span style="color: rgb(168, 163, 155); font-family: Barlow, system-ui, sans-serif; font-size: 13px; letter-spacing: normal; text-transform: none;">Subsolul devine un hub comunitar de educație alimentară — bucătărie demonstrativă, stații individuale de preparare și zonă de gathering pentru ateliere de wellness.</span></div></div>
+      <div class="cap" style="font-size:7.5px">VITAERA SUITES · Baltimore · 2026</div>
+    </div>
+    <div class="lns" style="flex-shrink:0"></div>
+    <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:clamp(7px,1.1vh,13px)">
+      <div class="ph" style="position:relative"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 50% at 30% 60%,rgba(180,140,80,.09) 0%,transparent 60%),linear-gradient(150deg,#0f0d0a,#1a1510)"></div><div class="lbl-ph" style="display: none;">Insulă Demonstrativă &amp; Stații de Preparare</div><img src="images/img_005_fe60167f52e1.jpg" class="real-img"></div>
+      <div class="ph" style="position:relative"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 55% 40%,rgba(180,140,80,.09) 0%,transparent 60%),linear-gradient(150deg,#0f0d0a,#1a1510)"></div><div class="lbl-ph" style="display: none;">Atelier de Nutriție — Familii &amp; Comunitate</div><img src="images/img_006_4b4fadfad629.jpg" class="real-img"></div>
+      <div class="ph" style="position:relative"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 55% 65% at 45% 50%,rgba(180,140,80,.09) 0%,transparent 60%),linear-gradient(150deg,#0f0d0a,#1a1510)"></div><div class="lbl-ph" style="display: none;">Spațiu de Discuții &amp; Workshop-uri</div><img src="images/img_007_035a8de24fe5.jpg" class="real-img"></div>
+      <div class="ph" style="position:relative"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(180,140,80,.09) 0%,transparent 60%),linear-gradient(150deg,#0f0d0a,#1a1510)"></div><div class="lbl-ph" style="display: none;">Rafturi Deschise — Ingrediente &amp; Ustensile</div><img src="images/img_008_f33f4cbf3cbd.jpg" class="real-img"></div>
+    </div>
+  </div>
+  <div class="pn">XX / XX</div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     VITAERA · SUITE MEDICALE (PARTER)
+════════════════════════════════════════ -->
+
+
+<div class="s" id="pVitaera4">
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:var(--pv) var(--p);gap:clamp(8px,1.3vh,14px)">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;flex-shrink:0">
+      <div class="head" style="font-size:clamp(16px,2.1vw,26px)">Suite Medicale — Parter<div><span style="color: rgb(168, 163, 155); font-family: Barlow, system-ui, sans-serif; font-size: 13px; letter-spacing: normal; text-transform: none;">Recepție de tip hospitality, opt suite individuale pentru furnizori medicali și un breakroom modern — un nivel gândit pentru colaborare profesională și confort al pacientului.</span></div></div>
+      <div class="cap" style="font-size:7.5px">VITAERA SUITES · Baltimore · 2026</div>
+    </div>
+    <div class="lns" style="flex-shrink:0"></div>
+    <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:clamp(7px,1.1vh,13px)">
+      <div class="ph" style="position:relative"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 50% at 30% 60%,rgba(180,140,80,.09) 0%,transparent 60%),linear-gradient(150deg,#0f0d0a,#1a1510)"></div><div class="lbl-ph" style="display: none;">Recepție Hospitality cu Kiosk Electronic</div><img src="images/img_009_4782ca8e6edd.jpg" class="real-img"></div>
+      <div class="ph" style="position:relative"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 55% 40%,rgba(180,140,80,.09) 0%,transparent 60%),linear-gradient(150deg,#0f0d0a,#1a1510)"></div><div class="lbl-ph" style="display: none;">Suită Individuală — Cabinetărie &amp; Chiuvetă</div><img src="images/img_010_f6006cbab80d.jpg" class="real-img"></div>
+      <div class="ph" style="position:relative"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 55% 65% at 45% 50%,rgba(180,140,80,.09) 0%,transparent 60%),linear-gradient(150deg,#0f0d0a,#1a1510)"></div><div class="lbl-ph" style="display: none;">Circulație Principală — Acces 8 Suite</div><img src="images/img_011_6859aed8e3b6.jpg" class="real-img"></div>
+      <div class="ph" style="position:relative"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(180,140,80,.09) 0%,transparent 60%),linear-gradient(150deg,#0f0d0a,#1a1510)"></div><div class="lbl-ph" style="display: none;">Breakroom Furnizori — Zonă de Pauză</div><img src="images/img_012_8b033b5f9ee6.jpg" class="real-img"></div>
+    </div>
+  </div>
+  <div class="pn">XX / XX</div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     VITAERA · MED SPA & BIROURI (ETAJ)
+════════════════════════════════════════ -->
+
+
+<div class="s" id="pVitaera5">
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:var(--pv) var(--p);gap:clamp(8px,1.3vh,14px)">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;flex-shrink:0">
+      <div class="head" style="font-size:clamp(16px,2.1vw,26px)">Med Spa &amp; Birouri — Etajul Superior<div><span style="color: rgb(168, 163, 155); font-family: Barlow, system-ui, sans-serif; font-size: 13px; letter-spacing: normal; text-transform: none;">Nivel cu intrare separată, gândit pentru servicii estetice premium și birouri executive — finisaje superioare, accente aurii și o atmosferă elevată.</span></div></div>
+      <div class="cap" style="font-size:7.5px">VITAERA SUITES · Baltimore · 2026</div>
+    </div>
+    <div class="lns" style="flex-shrink:0"></div>
+    <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:clamp(7px,1.1vh,13px)">
+      <div class="ph" style="position:relative"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 50% at 30% 60%,rgba(180,140,80,.09) 0%,transparent 60%),linear-gradient(150deg,#0f0d0a,#1a1510)"></div><div class="lbl-ph" style="display: none;">Suită Estetică — Finisaje Premium</div><img src="images/img_013_1d9353c44086.jpg" class="real-img"></div>
+      <div class="ph" style="position:relative"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 55% 40%,rgba(180,140,80,.09) 0%,transparent 60%),linear-gradient(150deg,#0f0d0a,#1a1510)"></div><div class="lbl-ph" style="display: none;">Birou Executiv — Open Space Colaborativ</div><img src="images/img_014_afbd23429b6d.jpg" class="real-img"></div>
+      <div class="ph" style="position:relative"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 55% 65% at 45% 50%,rgba(180,140,80,.09) 0%,transparent 60%),linear-gradient(150deg,#0f0d0a,#1a1510)"></div><div class="lbl-ph" style="display: none;">Kitchenette &amp; Baie — Spațiu Open</div><img src="images/img_015_d2da8348b5a9.jpg" class="real-img"></div>
+      <div class="ph" style="position:relative"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(180,140,80,.09) 0%,transparent 60%),linear-gradient(150deg,#0f0d0a,#1a1510)"></div><div class="lbl-ph" style="display: none;">Intrare Separată — Terasă pentru Evenimente</div><img src="images/img_016_a3f29ec29726.jpg" class="real-img"></div>
+    </div>
+  </div>
+  <div class="pn">XX / XX</div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     VITAERA · MATERIALE & ATMOSFERĂ
+════════════════════════════════════════ -->
+
+
+<div class="s" id="pVitaera6">
+  <div style="position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:0">
+    <div style="display:flex;flex-direction:column;justify-content:center;padding:var(--pv) var(--p);border-right:1px solid rgba(196,149,90,.15)">
+      <div class="lbl" style="margin-bottom:clamp(14px,2.2vh,24px);letter-spacing:.48em">Finisaje</div>
+      <div class="head" style="font-size:clamp(18px,2.4vw,32px);margin-bottom:clamp(12px,2vh,22px)">MATERIALE &amp; ATMOSFERĂ</div>
+      <div class="lns" style="width:40px;margin-bottom:clamp(12px,2vh,22px)"></div>
+      <div class="body" style="margin-bottom:clamp(10px,1.6vh,18px)">
+        <p>Materialele au fost alese pornind de la logica funcțională a spațiului, nu doar din considerente estetice. Lemnul deschis și piatra naturală îmbracă zonele de circulație, oferind continuitate vizuală de la un nivel la altul. Alama mată apare doar punctual — pe semnalistică, pe mobilierul de recepție — ca o notă discretă într-o paletă altfel neutră.</p>
+      </div>
+      <div class="body">
+        <p>Cărămida aparentă, rămasă din structura istorică a clădirii, e lăsată vizibilă pe alocuri, ca o legătură directă cu trecutul ei. La etajul de med spa, lucrurile se schimbă puțin — textile mai fine, accente metalice mai vizibile, lumină mai caldă — dar fără să se piardă firul vizual care ține totul împreună.</p>
+      </div>
+      <div style="margin-top:clamp(16px,2.8vh,32px)">
+        <div class="lbl" style="font-size:7.5px;margin-bottom:10px">Paletă de Materiale</div>
+        <div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap"><input type="color" class="pal-dot" value="#5B6B4F" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><input type="color" class="pal-dot" value="#AEA38E" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><input type="color" class="pal-dot" value="#DDDBD7" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><input type="color" class="pal-dot" value="#593B1F" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><input type="color" class="pal-dot" value="#C4955A" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><div class="body" style="font-size:8.5px;margin-left:6px;opacity:.6">Verde olive · Bej cald · Gri deschis · Maro lemn · Auriu</div></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column">
+      <div class="ph" style="flex:1;position:relative">
+        
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 40% 45%,rgba(196,149,90,.08) 0%,transparent 65%),linear-gradient(160deg,#0f0d0a,#1a1510,#0d0b09)"></div>
+        <div class="lbl-ph" style="display: none;">Vitaera Suites — Materiale &amp; Finisaje</div>
+      <img src="images/img_017_d8ca10011f54.jpg" class="real-img"></div>
+      <div style="padding:clamp(14px,2.2vh,24px) clamp(16px,2.5vw,32px);border-top:1px solid rgba(196,149,90,.15)">
+        <div class="cap" style="margin-bottom:8px">Finisaje Cheie</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+          <div class="body" style="font-size:9px;opacity:.6">Lemn deschis &amp; piatră naturală</div>
+          <div class="body" style="font-size:9px;opacity:.6">Alamă mată — accente</div>
+          <div class="body" style="font-size:9px;opacity:.6">Quartz — suprafețe medicale</div>
+          <div class="body" style="font-size:9px;opacity:.6">Cărămidă aparentă păstrată</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pn">XX / XX</div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     VITAERA · TUR VIRTUAL 360°
+════════════════════════════════════════ -->
+
+
+<div class="s ctlc cbrc" id="pVitaera7">
+  <div style="position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:0">
+    <div class="kuula-embed" style="border-right:1px solid rgba(196,149,90,.15)">
+      <div class="img-overlay-icon" style="display:none">＋</div>
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 40% 45%,rgba(196,149,90,.08) 0%,transparent 65%),linear-gradient(160deg,#0f0d0a,#1a1510,#0d0b09)"></div>
+      <div class="lbl-ph" style="display: none;">Vitaera Suites — Tur Virtual 360°</div>
+      <div class="kuula-poster" onclick="this.parentElement.classList.add(&#39;playing&#39;); this.parentElement.querySelector(&#39;iframe&#39;).src=this.parentElement.querySelector(&#39;iframe&#39;).dataset.src;">
+        <div class="kuula-play-btn">
+          <div class="kuula-play-circle"><div class="kuula-play-tri"></div></div>
+          <div class="lbl" style="font-size:7.5px;letter-spacing:.35em;color:#fff;background:rgba(10,8,6,.55);padding:5px 12px;border-radius:2px">TUR VIRTUAL 360°</div>
+        </div>
+      </div>
+      <iframe data-src="https://kuula.co/share/collection/7TYWp?logo=0&amp;info=0&amp;fs=1&amp;vr=1&amp;sd=1&amp;initload=0&amp;thumbs=1" allow="xr-spatial-tracking; gyroscope; accelerometer" allowfullscreen="" scrolling="no" loading="lazy"></iframe>
+    </div>
+    <div style="display:flex;flex-direction:column;justify-content:center;padding:var(--pv) var(--p)">
+      <div class="lbl" style="margin-bottom:clamp(14px,2.2vh,24px);letter-spacing:.5em">Experiență Imersivă</div>
+      <div class="disp" style="font-size:clamp(22px,3.2vw,40px);margin-bottom:clamp(14px,2.2vh,24px)">Tur Virtual Interactiv 360°</div>
+      <div class="lns" style="width:50px;margin-bottom:clamp(14px,2.2vh,24px)"></div>
+      <div class="body" style="font-size:clamp(9.5px,1vw,12px)">
+        Tur panoramic complet al Vitaera Suites, realizat în Kuula — de la spațiul comunitar Well-House, prin suitele medicale de la parter, până la etajul premium de med spa și birouri. Nu un simplu walkthrough imobiliar, ci un traseu construit ca o poveste, prin care se vede cum prinde viață fiecare nivel al clădirii.
+      </div>
+      <div class="lns" style="width:30px;margin:clamp(16px,2.5vh,26px) 0"></div>
+      <a href="https://kuula.co/share/collection/7TYWp?logo=0&amp;info=0&amp;fs=1&amp;vr=1&amp;sd=1&amp;initload=0&amp;thumbs=1" target="_blank" rel="noopener" class="kuula-link-btn">
+        <div class="kuula-play-tri" style="border-left-color:var(--gd)"></div>
+        <div>
+          <div class="lbl" style="font-size:8px;letter-spacing:.3em">▶ ACCESEAZĂ TURUL · LINK KUULA</div>
+          <div class="body" style="font-size:9px;margin-top:6px;word-break:break-all;max-width:420px;color:var(--gd)">https://kuula.co/share/collection/7TYWp</div>
+        </div>
+      </a>
+      <div style="margin-top:clamp(16px,2.5vh,26px);display:flex;gap:8px;flex-wrap:wrap">
+        <span class="tag">Tur 360°</span>
+        <span class="tag">Kuula</span>
+      </div>
+    </div>
+  </div>
+  <div class="pn">XX / XX</div>
+</div>
+
+<!-- ════════════════════════════════════════
+     06 · P01 PANAMA — COVER
+════════════════════════════════════════ -->
+
+
+<div class="s" id="p6">
+  <div class="ph" style="position:absolute;top:0;left:0;width:68%;height:100%">
+    
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 35% 55%,rgba(220,170,80,.1) 0%,transparent 60%),linear-gradient(160deg,#0f0d0a,#1a1510,#0d0b09)"></div>
+    <div class="lbl-ph" style="display: none;">Compact Apartment · Panama City · 2025</div>
+    <div style="position:absolute;top:0;left:0;bottom:0;width:2px;background:linear-gradient(to bottom,transparent,var(--gd) 30%,var(--gd) 70%,transparent);opacity:.5"></div>
+  <img src="images/img_018_f1e28dfa1761.jpg" class="real-img"></div>
+  <div style="position:absolute;top:0;left:68%;right:0;bottom:0;display:flex;flex-direction:column;justify-content:center;padding:var(--pv) clamp(16px,2.5vw,36px)">
+    <div class="proj-num">01</div>
+    <div class="lns" style="width:30px;margin:clamp(10px,1.8vh,20px) 0"></div>
+    <div class="lbl" style="margin-bottom:8px;letter-spacing:.4em">Proiect 01</div>
+    <div class="head" style="font-size:clamp(14px,2vw,26px);margin-bottom:clamp(8px,1.3vh,16px)"><div><span style="font-size: 58px; letter-spacing: 8.7px;">REȘEDINȚĂ PRIVATĂ&nbsp;&nbsp;</span></div><div><br></div></div>
+    <div class="lbl" style="color:var(--cr2);font-size:7.5px;margin-bottom:clamp(14px,2.2vh,24px)"><strong data-start="584" data-end="632">LOCUINȚĂ PRIVATĂ | 180 MP | BUCUREȘTI | 2018</strong><br data-start="632" data-end="635">
+<strong data-start="635" data-end="703">Rol: Concept Design • Documentație Tehnică • Coordonare Execuție</strong></div>
+    <div class="lns" style="width:30px;margin-bottom:clamp(12px,1.8vh,22px)"></div>
+    <div class="body" style="font-size:clamp(9px,.95vw,11.5px)"><blockquote data-start="737" data-end="1031"><p data-start="424" data-end="801"><span style="color: rgb(237, 232, 223); font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-size: 26px; letter-spacing: 2.6px; text-transform: uppercase;">CONTEXTUL PROIECTULUI &amp; CONCEPTUL DE DESIGN</span></p><p data-start="424" data-end="801"><span style="color: rgb(237, 232, 223); font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-size: 26px; letter-spacing: 2.6px; text-transform: uppercase;"><br></span></p><p data-start="424" data-end="801">Proiectul a fost dezvoltat pentru o locuință privată aflată în stadiul de structură, oferind oportunitatea de a defini integral organizarea spațiului, materialele și atmosfera interioară încă din primele etape ale execuției. Intervenția a urmărit transformarea unui volum brut într-un interior contemporan, echilibrat și funcțional, adaptat stilului de viață al beneficiarilor.</p><p data-start="424" data-end="801"><br></p><p data-start="739" data-end="1031">
+</p><p data-start="803" data-end="1224">Conceptul de design este construit în jurul luminii naturale, al proporțiilor curate și al unei palete calde de materiale, în care stejarul natural, piatra cu aspect de marmură, sticla și accentele metalice discrete contribuie la o imagine coerentă și atemporală. Rezultatul este un spațiu luminos, elegant și ușor de locuit, în care fiecare element răspunde atât unor cerințe funcționale, cât și unor obiective estetice.</p></blockquote><blockquote data-start="1033" data-end="1204">
+</blockquote></div>
+    <div style="margin-top:clamp(16px,2.5vh,28px)"><span class="tag">Rezidențial</span></div>
+  </div>
+  <div class="pn">06 / 47</div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     07 · P01 PANAMA — CONCEPT
+════════════════════════════════════════ -->
+
+
+<div class="s" id="p7">
+  <div style="position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:0">
+    <div style="display:flex;flex-direction:column;justify-content:center;padding:var(--pv) var(--p);border-right:1px solid rgba(196,149,90,.15)">
+      <div class="lbl" style="margin-bottom:clamp(14px,2.2vh,24px);letter-spacing:.48em">Conceptul de Design</div>
+      <div class="head" style="font-size:clamp(18px,2.4vw,32px);margin-bottom:clamp(12px,2vh,22px)">&nbsp;DE LA STRUCTURĂ LA FINISAJ</div>
+      <div class="lns" style="width:40px;margin-bottom:clamp(12px,2vh,22px)"></div>
+      <div class="body" style="margin-bottom:clamp(10px,1.6vh,18px)"><p data-start="1395" data-end="1707">Imaginile ilustrează procesul de transformare al locuinței, de la stadiul de structură și finisaje brute la rezultatul final. Implicarea încă din fazele inițiale ale proiectului a permis integrarea soluțiilor de design direct în procesul de execuție și coordonarea detaliilor care definesc identitatea spațiului.</p><p data-start="1395" data-end="1707"><br></p></div>
+      <div class="body"><p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Scara interioară devine elementul central al compoziției, conectând vizual cele trei niveluri și organizând fluxurile principale ale locuinței. Materialele selectate — stejar natural, piatră cu aspect de marmură, sticlă și finisaje mate — contribuie la crearea unei atmosfere luminoase, contemporane și durabile.</p></div>
+      <div style="margin-top:clamp(16px,2.8vh,32px)">
+        <div class="lbl" style="font-size:7.5px;margin-bottom:10px">Paletă de Materiale</div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <div style="width:28px;height:28px;background:#C4955A;border-radius:50%"></div>
+          <div style="width:28px;height:28px;background:#E8DFD0;border-radius:50%"></div>
+          <div style="width:28px;height:28px;background:#8B6E4E;border-radius:50%"></div>
+          <div style="width:28px;height:28px;background:#D4C4A8;border-radius:50%"></div>
+          <div style="width:28px;height:28px;background:#3A2F28;border-radius:50%"></div>
+          <div class="body" style="font-size:8.5px;margin-left:6px;opacity:.6">Stejar · Crem · Marmură · Teracotă · Alamă</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column">
+      <div class="ph" style="flex:1;position:relative">
+        
+        <div style="position:absolute;inset:0;background:linear-gradient(160deg,#131210,#1c1a15,#0e0d0b)"></div>
+        <div class="lbl-ph" style="display: none;">Before — Existing Space</div>
+      <img src="images/img_019_8d723b5faae2.jpg" class="real-img"></div>
+      <div style="padding:clamp(14px,2.2vh,24px) clamp(16px,2.5vw,32px);border-top:1px solid rgba(196,149,90,.15)">
+        <div class="cap" style="margin-bottom:8px">Date Proiect</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+          <div class="body" style="font-size:9px;opacity:.6">Locație: Bucuresti</div>
+          <div class="body" style="font-size:9px;opacity:.6">An: 2018</div>
+          <div class="body" style="font-size:9px;opacity:.6">Tip: Rezidențial</div>
+          <div class="body" style="font-size:9px;opacity:.6">Status: Finalizat</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pn">07 / 47</div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     08 · P01 PANAMA — RENDERS
+════════════════════════════════════════ -->
+
+
+<div class="s" id="p8">
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:var(--pv) var(--p);gap:clamp(8px,1.3vh,16px)">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;flex-shrink:0">
+      <div><div class="cap" style="margin-bottom:6px">01 · Bucuresti · 2018</div><div class="head" style="font-size:clamp(16px,2.2vw,28px)">IMPLEMENTARE &amp; REZULTAT FINAL</div></div>
+      <div class="lbl" style="font-size:8px;opacity:.5">Randări</div>
+    </div>
+    <div class="lns" style="flex-shrink:0"></div>
+    <div style="flex:1;display:grid;grid-template-rows:1.4fr 1fr;gap:clamp(8px,1.3vh,14px)">
+      <div class="ph" style="position:relative">
+        
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 35% 60%,rgba(220,170,80,.1) 0%,transparent 60%),linear-gradient(160deg,#100e0b,#1e1a12,#0c0b09)"></div>
+        <div class="lbl-ph" style="display: none;">Living — Randare Principală</div>
+      <img src="images/img_020_5c4498d2e6f1.jpg" class="real-img"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(8px,1.3vw,14px)">
+        <div class="ph" style="position:relative">
+          
+          <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 60% 40%,rgba(200,155,75,.08) 0%,transparent 60%),linear-gradient(140deg,#0e0c0a,#181410,#0c0a08)"></div>
+          <div class="lbl-ph" style="display: none;">Bucătărie &amp; Dining</div>
+        <img src="images/img_021_1832f789475a.jpg" class="real-img"></div>
+        <div class="ph" style="position:relative">
+          
+          <div style="position:absolute;inset:0;background:radial-gradient(ellipse 55% 60% at 40% 45%,rgba(196,149,90,.07) 0%,transparent 60%),linear-gradient(145deg,#0f0d0b,#1a1612,#0d0b09)"></div>
+          <div class="lbl-ph" style="display: none;">Dormitor Principal</div>
+        <img src="images/img_022_df053217f2a9.jpg" class="real-img"></div>
+      </div>
+    </div>
+  </div>
+  <div class="pn">08 / 47</div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     09 · P01 PANAMA — TECHNICAL
+════════════════════════════════════════ -->
+
+
+<div class="s" id="p9">
+  <div style="position:absolute;inset:0;display:grid;grid-template-columns:1.1fr 1fr;gap:0">
+    <div style="display:flex;flex-direction:column;border-right:1px solid rgba(196,149,90,.15)">
+      <div class="ph grid" style="flex:1;position:relative">
+        
+        <div class="lbl-ph" style="display: none;">Technical Drawings — Custom Furniture</div>
+      <img src="images/img_023_bae930ff5713.jpg" class="real-img"></div>
+      <div style="padding:clamp(12px,2vh,22px) clamp(16px,2.5vw,32px);border-top:1px solid rgba(196,149,90,.12)">
+        <div class="cap" style="margin-bottom:7px">DETALII DE EXECUȚIE – MOBILIER LA COMANDĂ</div>
+        <div class="body" style="font-size:9.5px">Desfășurate, secțiuni și cote de execuție pentru mobilier personalizat, realizate pentru producție și montaj pe șantier.</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;padding:var(--pv) clamp(16px,2.5vw,36px)">
+      <div class="lbl" style="margin-bottom:clamp(10px,1.6vh,18px);letter-spacing:.45em">DOCUMENTAȚIE TEHNICĂ DE IMPLEMENTARE</div>
+      <div class="head" style="font-size:clamp(16px,2.2vw,28px);margin-bottom:clamp(14px,2.2vh,26px)">PLANURI DE NIVEL &amp; DETALII TEHNICE</div>
+      <div class="ph grid" style="flex:1;position:relative;margin-bottom:clamp(12px,2vh,22px)">
+        
+        <div class="lbl-ph" style="display: none;">Plan de Etaj</div>
+      <img src="images/img_024_e32b0c1669db.jpg" class="real-img"></div>
+      <div class="lns" style="margin-bottom:clamp(10px,1.6vh,18px)"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div><div class="cap" style="margin-bottom:5px">Suprafață Brută</div><div class="body" style="font-size:10px">Planuri mobilate, detalii constructive și coordonare tehnică pentru implementarea proiectului.</div></div>
+        <div><div class="cap" style="margin-bottom:5px">Obiect Proiect</div><div class="body" style="font-size:10px">Design interior integral</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="pn">09 / 47</div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     10 · P02 USA — COVER
+════════════════════════════════════════ -->
+
+
+<div class="s" id="p10">
+  <div class="ph" style="position:absolute;inset:0;z-index:1">
+    
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 35% 55%,rgba(220,170,80,.11) 0%,transparent 60%),linear-gradient(160deg,#100d0a,#1b1611,#0c0a08)"></div>
+  <img src="images/img_025_d4fa9afbe3ba.jpg" class="real-img"></div>
+  <div style="position:absolute;bottom:0;left:0;right:0;height:66%;z-index:4;pointer-events:none;background:linear-gradient(to top,rgba(9,9,8,.98) 0%,rgba(9,9,8,.62) 52%,transparent 100%)"></div>
+  <div style="position:absolute;top:0;left:0;bottom:0;width:3px;z-index:4;background:linear-gradient(to bottom,transparent,var(--gd) 25%,var(--gd) 75%,transparent);opacity:.4"></div>
+  <div class="txt-layer" style="position:absolute;bottom:clamp(60px,10vh,100px);left:var(--p);right:var(--p);z-index:6">
+    <div class="lbl" style="margin-bottom:10px;letter-spacing:.45em">Proiect 02</div>
+    <div class="proj-num" style="line-height:1;margin-bottom:clamp(6px,1vh,12px)">02</div>
+    <div class="disp" style="font-size:clamp(28px,4.2vw,58px);margin-bottom:6px">REȘEDINȚĂ CONTEMPORANĂ | BUCUREȘTI</div>
+    <div class="lns" style="width:60px;margin:clamp(10px,1.6vh,18px) 0"></div>
+    <div style="display:flex;align-items:center;gap:clamp(12px,2vw,24px);flex-wrap:wrap"><span class="body" style="font-size:10px;opacity:.6"><span style="font-size: 8.5px; letter-spacing: 1.19px; text-transform: uppercase; background-color: rgb(9, 9, 8);">bucuresti · 2022</span></span><span style="width:1px;height:13px;background:rgba(196,149,90,.3)"></span><span class="body" style="font-size:10px;opacity:.6">Apartament · 180 m²</span><span style="width:1px;height:13px;background:rgba(196,149,90,.3)"></span><span class="body" style="font-size:10px;opacity:.6">Interior Complet</span><span style="width:1px;height:13px;background:rgba(196,149,90,.3)"></span><span class="tag">Rezidențial Premium</span></div>
+  </div>
+  <div class="pn">10 / 47</div>
+</div>
+
+<div class="s" id="p11">
+  <div style="position:absolute;inset:0;display:grid;grid-template-columns:1.4fr 1fr;gap:0">
+    <div style="display:flex;flex-direction:column;border-right:1px solid rgba(196,149,90,.15)">
+      <div style="padding:var(--pv) var(--p);flex-shrink:0">
+        <div class="cap" style="margin-bottom:6px">02 · Bucuresti · 2022</div>
+        <div class="head" style="font-size:clamp(16px,2.1vw,28px)">ORGANIZAREA FUNCȚIONALĂ &amp; CONCEPTUL DE AMENAJARE</div>
+      </div>
+      <div class="ph grid" style="flex:1;position:relative;margin:0 var(--p) var(--pv)">
+        
+        <div class="lbl-ph" style="display: none;">Lower Level Floor Plan</div>
+      <img src="images/img_026_3b41a4a40213.jpg" class="real-img"></div>
+    </div>
+    <div style="display:flex;flex-direction:column;padding:var(--pv) clamp(16px,2.5vw,36px);justify-content:center;gap:clamp(6px,1vh,12px)">
+      <div class="lbl" style="margin-bottom:clamp(14px,2.2vh,24px);letter-spacing:.45em"><p data-start="1192" data-end="1203"><span style="letter-spacing: 3.96px;">Conceptul de Design&nbsp;</span></p><p data-start="1192" data-end="1203"><span style="letter-spacing: 3.96px;"><br></span></p><p data-start="1192" data-end="1203"><span style="letter-spacing: 3.96px;"><br></span></p><p class="MsoNormal" style="color: rgb(168, 163, 155); font-family: Barlow, system-ui, sans-serif; font-size: 13px; letter-spacing: normal; text-transform: none;">Proiectul a presupus amenajarea completă a unui apartament urban, definit prin echilibrul dintre</p><p class="MsoNormal" style="color: rgb(168, 163, 155); font-family: Barlow, system-ui, sans-serif; font-size: 13px; letter-spacing: normal; text-transform: none;">&nbsp;rafinamentul detaliilor clasice și funcționalitatea stilului de viață contemporan.&nbsp;</p><p class="MsoNormal" style="color: rgb(168, 163, 155); font-family: Barlow, system-ui, sans-serif; font-size: 13px; letter-spacing: normal; text-transform: none;"><br></p><p class="MsoNormal" style="color: rgb(168, 163, 155); font-family: Barlow, system-ui, sans-serif; font-size: 13px; letter-spacing: normal; text-transform: none;"><br></p><p class="MsoNormal" style="color: rgb(168, 163, 155); font-family: Barlow, system-ui, sans-serif; font-size: 13px; letter-spacing: normal; text-transform: none;">Procesul de proiectare a inclus reorganizarea funcțională a spațiului, dezvoltarea mobilierului personalizat,&nbsp;</p><p class="MsoNormal" style="color: rgb(168, 163, 155); font-family: Barlow, system-ui, sans-serif; font-size: 13px; letter-spacing: normal; text-transform: none;">definirea scenariilor de iluminat și elaborarea documentației tehnice necesare implementării.</p><p class="MsoNormal" style="color: rgb(168, 163, 155); font-family: Barlow, system-ui, sans-serif; font-size: 13px; letter-spacing: normal; text-transform: none;"><br></p><p class="MsoNormal" style="color: rgb(168, 163, 155); font-family: Barlow, system-ui, sans-serif; font-size: 13px; letter-spacing: normal; text-transform: none;"><br></p><p class="MsoNormal" style="color: rgb(168, 163, 155); font-family: Barlow, system-ui, sans-serif; font-size: 13px; letter-spacing: normal; text-transform: none;">Finisajele premium, paleta cromatică neutră și detaliile decorative inspirate din limbajul clasic reinterpretat&nbsp;</p><p class="MsoNormal" style="color: rgb(168, 163, 155); font-family: Barlow, system-ui, sans-serif; font-size: 13px; letter-spacing: normal; text-transform: none;">contribuie la o atmosferă luminoasă, coerentă și atemporală.</p><p data-start="906" data-end="1091" style="color: rgb(168, 163, 155); font-family: Barlow, system-ui, sans-serif; font-size: 13px; letter-spacing: normal; text-transform: none;"></p><p class="MsoNormal" style="color: rgb(168, 163, 155); font-family: Barlow, system-ui, sans-serif; font-size: 13px; letter-spacing: normal; text-transform: none;"><o:p>&nbsp;</o:p></p></div>
+      <div style="display:flex;flex-direction:column;gap:clamp(8px,1.2vh,14px)">
+        <div style="display:flex;align-items:baseline;gap:12px;padding-bottom:clamp(8px,1.2vh,14px);border-bottom:1px solid rgba(196,149,90,.1)"><div class="num" style="font-size:11px;min-width:18px">A</div><div><div class="body"><strong data-start="238" data-end="268">Living &amp; Dining</strong><br></div><div class="body" style="font-size:8.5px;opacity:.5;margin-top:2px">Zona principală de zi este concepută ca un spațiu deschis destinat socializării și relaxării, unde finisajele elegante și iluminatul decorativ contribuie la o&nbsp;<div>atmosferă caldă și sofisticată.</div></div></div></div>
+        <div style="display:flex;align-items:baseline;gap:12px;padding-bottom:clamp(8px,1.2vh,14px);border-bottom:1px solid rgba(196,149,90,.1)"><div class="num" style="font-size:11px;min-width:18px">B</div><div><div class="body">Bucătărie cu Insulă</div><div class="body" style="font-size:8.5px;opacity:.5;margin-top:2px">Bucătărie realizată pe comandă, cu insulă centrală și zone optimizate pentru depozitare și prepararea alimentelor, integrată armonios în&nbsp;<div>spațiul de zi.</div></div></div></div>
+        <div style="display:flex;align-items:baseline;gap:12px;padding-bottom:clamp(8px,1.2vh,14px);border-bottom:1px solid rgba(196,149,90,.1)"><div class="num" style="font-size:11px;min-width:18px">C</div><div><div class="body"> Dormitor Matrimonial &amp; Dressing</div><div class="body" style="font-size:8.5px;opacity:.5;margin-top:2px">Suită privată proiectată pentru confort și organizare eficientă, completată de spații generoase de depozitare realizate la comandă.</div></div></div>
+        <div style="display:flex;align-items:baseline;gap:12px;padding-bottom:clamp(8px,1.2vh,14px);border-bottom:1px solid rgba(196,149,90,.1)"><div class="num" style="font-size:11px;min-width:18px">D</div><div><div class="body">Cameră Copil</div><div class="body" style="font-size:8.5px;opacity:.5;margin-top:2px"><p data-start="1933" data-end="2038">Spațiu adaptat nevoilor utilizatorului, cu mobilier personalizat și o atmosferă luminoasă și echilibrată.</p></div></div></div>
+        <div style="display:flex;align-items:baseline;gap:12px;padding-bottom:clamp(8px,1.2vh,14px);border-bottom:1px solid rgba(196,149,90,.1)"><div class="num" style="font-size:11px;min-width:18px">E</div><div><div class="body">Băi</div><div class="body" style="font-size:8.5px;opacity:.5;margin-top:2px">Volume compacte tratate unitar prin finisaje premium, mobilier personalizat și scenarii de iluminat dedicate.</div></div></div>
+        <div style="display:flex;align-items:baseline;gap:12px"><div class="num" style="font-size:11px;min-width:18px">F</div><div><div class="body">Mobilier Personalizat &amp; Iluminat</div><div class="body" style="font-size:8.5px;opacity:.5;margin-top:2px">Elementele de mobilier realizate pe comandă și sistemele de iluminat integrate contribuie la definirea identității proiectului și la optimizarea&nbsp;<div>funcțională a fiecărei încăperi.</div></div></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="pn">11 / 47</div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     12 · P02 USA — RENDERS
+════════════════════════════════════════ -->
+
+
+<div class="s" id="p12">
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:var(--pv) var(--p);gap:clamp(8px,1.3vh,14px)">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;flex-shrink:0">
+      <div class="head" style="font-size:clamp(16px,2.1vw,26px)">Randări Interioare</div>
+      <div class="cap" style="font-size:7.5px">02 · REȘEDINȚĂ CONTEMPORANĂ · Bucuresti · 2022</div>
+    </div>
+    <div class="lns" style="flex-shrink:0"></div>
+    <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:clamp(7px,1.1vh,13px)">
+      <div class="ph" style="position:relative"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 50% at 30% 60%,rgba(180,140,80,.09) 0%,transparent 60%),linear-gradient(150deg,#0f0d0a,#1a1510)"></div><div class="lbl-ph" style="display: none;">Zonă Living &amp; Entertainment</div><img src="images/img_027_987d85270824.jpg" class="real-img"></div>
+      <div class="ph" style="position:relative"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 55% 40%,rgba(160,130,80,.08) 0%,transparent 60%),linear-gradient(145deg,#0e0c0a,#171310)"></div><div class="lbl-ph" style="display: none;">Bar Umed</div><img src="images/img_028_18b958953a95.jpg" class="real-img"></div>
+      <div class="ph" style="position:relative"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 55% 65% at 45% 55%,rgba(196,149,90,.07) 0%,transparent 60%),linear-gradient(155deg,#0f0d0b,#191511)"></div><div class="lbl-ph" style="display: none;">Dormitor Oaspeți</div><img src="images/img_029_2340d926ff01.jpg" class="real-img"></div>
+      <div class="ph" style="position:relative"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 35%,rgba(170,190,200,.04) 0%,transparent 55%),linear-gradient(140deg,#0d0c0b,#161413)"></div><div class="lbl-ph" style="display: none;">Pivniță de Vinuri</div><img src="images/img_030_b93f95c57a1b.jpg" class="real-img"></div>
+    </div>
+  </div>
+  <div class="pn">12 / 47</div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     13 · P03 SWITZERLAND — COVER
+════════════════════════════════════════ -->
+
+
+<div class="s" id="pr2_light">
+  <div style="position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:0">
+    <div style="display:flex;flex-direction:column;justify-content:center;padding:var(--pv) var(--p);border-right:1px solid rgba(196,149,90,.15)">
+      <div class="lbl" style="margin-bottom:clamp(12px,2vh,22px);letter-spacing:.48em">Documentație Tehnică</div>
+      <div class="head" style="font-size:clamp(18px,2.4vw,32px);margin-bottom:clamp(10px,1.6vh,18px)">PLAN DE ILUMINAT &amp; DETALII DE EXECUȚIE</div>
+      <div class="lns" style="width:40px;margin:0 0 clamp(12px,2vh,20px)"></div>
+      <div class="body" style="margin-bottom:clamp(10px,1.6vh,16px)"><p data-start="353" data-end="694">Documentația tehnică a fost elaborată pentru coordonarea completă a sistemelor de iluminat, a profilelor decorative și a mobilierului personalizat realizat la comandă. Planurile au fost concepute pentru a integra armonios elementele contemporane cu detaliile clasice ale amenajării, asigurând coerență vizuală și funcțională în toate spațiile locuinței.</p>
+<p data-start="696" data-end="904"><br></p></div>
+      <div class="body"><p data-start="696" data-end="904">Scenariile de iluminat combină lumina ambientală indirectă, iluminatul funcțional și accentele decorative, evidențiind finisajele premium, profilele ornamentale și texturile materialelor utilizate în proiect.</p><p data-start="906" data-end="1091">Detaliile tehnice au fost elaborate pentru execuția șantierului și coordonarea echipelor implicate, urmărind fidel implementarea conceptului de design până la etapa finală de amenajare.</p><p data-start="906" data-end="1091"><br></p><p class="MsoNormal">Acest proces a asigurat continuitatea dintre conceptul de design și rezultatul final executat.</p><p data-start="906" data-end="1091">
+
+
+
+
+
+</p><p class="MsoNormal"><o:p>&nbsp;</o:p></p></div>
+      <div style="margin-top:clamp(14px,2.4vh,26px);display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div class="body" style="font-size:9px;opacity:.6">· Plan iluminat și scenarii de lumină</div>
+        <div class="body" style="font-size:9px;opacity:.6">·&nbsp;Scheme de iluminat ambiental</div>
+        <div class="body" style="font-size:9px;opacity:.6">·&nbsp;Plan plafon și profile decorative</div>
+        <div class="body" style="font-size:9px;opacity:.6">·&nbsp;Coordonare tehnică pentru execuție</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:clamp(7px,1vh,12px);padding:var(--pv) clamp(16px,2.5vw,30px)">
+      <div class="ph grid" style="position:relative;flex:1.3"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 35%,rgba(170,190,200,.045) 0%,transparent 55%),linear-gradient(140deg,#0d0c0b,#161413)"></div><img src="images/img_031_f7111701f709.jpg" class="real-img"></div>
+      <div class="ph grid" style="position:relative;flex:1"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 45% 55%,rgba(196,149,90,.07) 0%,transparent 60%),linear-gradient(160deg,#0f0d0b,#191511)"></div><img src="images/img_032_7d5d3939ae13.jpg" class="real-img"></div>
+    </div>
+  </div>
+  <div class="pn">13 / 47</div>
+</div>
+
+<div class="s" id="pr2_rend1">
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:var(--pv) var(--p);gap:clamp(8px,1.3vh,14px)">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;flex-shrink:0"><div class="head" style="font-size:clamp(16px,2.1vw,26px)">Randări Fotorealiste</div><div class="cap" style="font-size:7.5px">02 · Apartament 180 m²</div></div>
+    <div class="lns" style="flex-shrink:0"></div>
+    <div style="flex:1;display:grid;grid-template-columns:1.6fr 1fr;gap:clamp(7px,1.1vh,13px)">
+      <div class="ph" style="position:relative;grid-row:span 2"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 32% 50%,rgba(196,149,90,.09) 0%,transparent 62%),linear-gradient(155deg,#100e0b,#1a1611,#0c0a09)"></div><img src="images/img_033_4917b5cbb6c3.png" class="real-img"></div>
+      <div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 60% 42%,rgba(170,135,80,.08) 0%,transparent 60%),linear-gradient(150deg,#0e0c0a,#171310)"></div><img src="images/img_034_7f5c19f9fedb.jpg" class="real-img"></div>
+      <div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 45% 55%,rgba(196,149,90,.07) 0%,transparent 60%),linear-gradient(160deg,#0f0d0b,#191511)"></div><img src="images/img_035_580bb129687a.jpg" class="real-img"></div>
+    </div>
+  </div>
+  <div class="pn">14 / 47</div>
+</div>
+
+<div class="s" id="pr2_rend2">
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:var(--pv) var(--p);gap:clamp(8px,1.3vh,14px)">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;flex-shrink:0"><div class="head" style="font-size:clamp(16px,2.1vw,26px)">Randări Fotorealiste&nbsp;</div><div class="cap" style="font-size:7.5px">02 · Apartament 180 m²</div></div>
+    <div class="lns" style="flex-shrink:0"></div>
+    <div style="flex:1;display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(2,1fr);gap:clamp(7px,1.1vh,13px)"><div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 32% 50%,rgba(196,149,90,.09) 0%,transparent 62%),linear-gradient(155deg,#100e0b,#1a1611,#0c0a09)"></div><img src="images/img_036_ec687e8210ea.jpg" class="real-img"></div><div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 60% 42%,rgba(170,135,80,.08) 0%,transparent 60%),linear-gradient(150deg,#0e0c0a,#171310)"></div><img src="images/img_037_177e39a2f686.jpg" class="real-img"></div><div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 45% 55%,rgba(196,149,90,.07) 0%,transparent 60%),linear-gradient(160deg,#0f0d0b,#191511)"></div><img src="images/img_038_d611e3a1daf1.jpg" class="real-img"></div><div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 35%,rgba(170,190,200,.045) 0%,transparent 55%),linear-gradient(140deg,#0d0c0b,#161413)"></div><img src="images/img_039_fc07301d45fa.jpg" class="real-img"></div></div>
+  </div>
+  <div class="pn">15 / 47</div>
+</div>
+
+<div class="s" id="pr2_furn">
+  <div style="position:absolute;inset:0;display:grid;grid-template-columns:1fr 1.25fr;gap:0">
+    <div style="display:flex;flex-direction:column;justify-content:center;padding:var(--pv) var(--p);border-right:1px solid rgba(196,149,90,.15)">
+      <div class="lbl" style="margin-bottom:clamp(12px,2vh,22px);letter-spacing:.48em">Mobilier pe Comandă</div>
+      <div class="head" style="font-size:clamp(17px,2.3vw,30px);margin-bottom:clamp(10px,1.6vh,18px)">MOBILIER PERSONALIZAT &amp; DETALII DE EXECUȚIE</div>
+      <div class="lns" style="width:40px;margin:clamp(10px,1.8vh,20px) 0"></div>
+      <div class="body" style="margin-bottom:clamp(12px,2vh,18px)"><blockquote data-start="1483" data-end="1649"><p data-start="1485" data-end="1649">Fiecare piesă de mobilier a fost dezvoltată la nivel de execuție pentru a integra cerințele funcționale, soluțiile de depozitare și limbajul estetic al proiectului.</p><p data-start="1485" data-end="1649"><br></p>
+</blockquote><p data-start="219" data-end="525">
+</p><blockquote data-start="1651" data-end="1893">
+<p data-start="1653" data-end="1893">Documentația tehnică a inclus detalierea completă a mobilierului personalizat, selecția materialelor și coordonarea elementelor decorative și de iluminat integrate, asigurând continuitatea dintre conceptul de design și implementarea finală.</p></blockquote></div>
+      <div style="display:flex;flex-direction:column;gap:clamp(7px,1vh,12px)">
+        <div style="display:flex;align-items:baseline;gap:10px;border-bottom:1px solid rgba(196,149,90,.1);padding-bottom:8px"><span class="num" style="font-size:11px;min-width:16px">01</span><div class="body"><p data-start="775" data-end="815"><strong data-start="775" data-end="815">Mobilier living &amp; vitrine decorative</strong></p></div></div>
+        <div style="display:flex;align-items:baseline;gap:10px;border-bottom:1px solid rgba(196,149,90,.1);padding-bottom:8px"><span class="num" style="font-size:11px;min-width:16px">02</span><div class="body">Bucătărie personalizată &amp; insulă centrală</div></div>
+        <div style="display:flex;align-items:baseline;gap:10px"><span class="num" style="font-size:11px;min-width:16px">03</span><div class="body">Dressing matrimonial &amp; sisteme integrate de depozitare</div></div>
+      </div>
+      <div style="margin-top:clamp(12px,2vh,24px)"><div class="lbl" style="font-size:7.5px;margin-bottom:9px">Finisaje Mobilier</div><div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap"><input type="color" class="pal-dot" value="#C4955A" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><input type="color" class="pal-dot" value="#E8DFD0" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><input type="color" class="pal-dot" value="#8B6E4E" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><input type="color" class="pal-dot" value="#2E2620" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><input type="color" class="pal-dot" value="#B7B2A8" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><div class="body" style="font-size:8.5px;margin-left:6px;opacity:.6"><p data-start="1034" data-end="1118"><strong data-start="1034" data-end="1118">MDF frezat vopsit · Furnir natural · Alamă satinată · Sticlă canelată · Onix</strong></p></div></div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:clamp(7px,1vh,12px);padding:var(--pv) clamp(16px,2.5vw,30px)">
+      <div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 45% 55%,rgba(196,149,90,.07) 0%,transparent 60%),linear-gradient(160deg,#0f0d0b,#191511)"></div><img src="images/img_040_d0f8e4a2c88b.jpg" class="real-img"></div>
+      <div class="ph grid" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 35%,rgba(170,190,200,.045) 0%,transparent 55%),linear-gradient(140deg,#0d0c0b,#161413)"></div><img src="images/img_041_e6983d22677a.jpg" class="real-img"></div>
+      <div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 60% 42%,rgba(170,135,80,.08) 0%,transparent 60%),linear-gradient(150deg,#0e0c0a,#171310)"></div><img src="images/img_042_4e1c43811d09.jpg" class="real-img"></div>
+      <div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 32% 50%,rgba(196,149,90,.09) 0%,transparent 62%),linear-gradient(155deg,#100e0b,#1a1611,#0c0a09)"></div><img src="images/img_043_9470b22a5917.jpg" class="real-img"></div>
+    </div>
+  </div>
+  <div class="pn">16 / 47</div>
+</div>
+
+<div class="s" id="pr3_cover">
+  <div class="ph" style="position:absolute;top:0;left:0;width:62%;height:100%">
+    
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 35% 55%,rgba(220,170,80,.11) 0%,transparent 60%),linear-gradient(160deg,#100d0a,#1b1611,#0c0a08)"></div>
+    <div style="position:absolute;top:0;right:0;bottom:0;width:2px;background:linear-gradient(to bottom,transparent,var(--gd) 30%,var(--gd) 70%,transparent);opacity:.5"></div>
+  <img src="images/img_044_72f85b5f852b.jpg" class="real-img"></div>
+  <div style="position:absolute;top:0;left:62%;right:0;bottom:0;display:flex;flex-direction:column;justify-content:center;padding:var(--pv) clamp(16px,2.5vw,36px)">
+    <div class="proj-num">03</div>
+    <div class="lns" style="width:30px;margin:clamp(10px,1.8vh,20px) 0"></div>
+    <div class="lbl" style="margin-bottom:8px;letter-spacing:.4em">Proiect 03</div>
+    <div class="head" style="font-size:clamp(14px,2vw,26px);margin-bottom:clamp(8px,1.3vh,16px)"><span style="font-size: 58px; letter-spacing: 8.7px;">REȘEDINȚĂ PRIVATĂ CONTEMPORANĂ</span></div>
+    <div class="lbl" style="color:var(--cr2);font-size:7.5px;margin-bottom:clamp(12px,2vh,22px)">Cipru · 2026</div>
+    <div class="lns" style="width:30px;margin:0 0 clamp(12px,1.8vh,22px)"></div>
+    <div class="body" style="font-size:clamp(9px,.95vw,11.5px)"><p data-start="473" data-end="687">Proiectul propune amenajarea unui apartament situat în Cipru, pornind de la particularitățile contextului mediteranean și de la relația dintre spațiul interior, lumina naturală și materialitatea specifică regiunii.</p>
+<p data-start="689" data-end="1052">Conceptul urmărește crearea unui interior contemporan, caracterizat prin echilibru vizual, continuitate spațială și integrarea unor elemente inspirate din arhitectura și cultura mediteraneană. Compoziția este construită în jurul unei palete cromatice luminoase, completată de texturi naturale, finisaje minerale, lemn în tonuri calde și accente metalice discrete.</p><p data-start="689" data-end="1052"><br></p><p data-start="689" data-end="1052"><br></p>
+<p data-start="1054" data-end="1265">Organizarea funcțională a fost gândită pentru a susține atât activitățile cotidiene, cât și momentele de relaxare și socializare, prin configurarea unor spații fluide și coerente, conectate vizual și funcțional.</p>
+<p data-start="1267" data-end="1471">Mobilierul realizat la comandă și iluminatul integrat contribuie la definirea unei identități unitare, în care funcționalitatea și expresia estetică sunt tratate ca elemente complementare ale proiectului.</p></div>
+    <div style="margin-top:clamp(16px,2.5vh,28px)"><span class="tag" style="margin-right:6px">Rezidențial</span><span class="tag" style="margin-right:6px">Design Integral</span></div>
+  </div>
+  <div class="pn">17 / 47</div>
+</div>
+
+<div class="s" id="pr3_zones1">
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:var(--pv) var(--p);gap:clamp(8px,1.3vh,14px)">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;flex-shrink:0"><div class="head" style="font-size:clamp(16px,2.1vw,26px)">Living · Bucătărie · Dining</div><div class="cap" style="font-size:7.5px">03 · Cipru</div></div>
+    <div class="lns" style="flex-shrink:0"></div>
+    <div style="flex:1;display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:1.4fr 1fr;gap:clamp(7px,1.1vh,13px)">
+      <div class="ph" style="position:relative;grid-column:span 2"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 32% 50%,rgba(196,149,90,.09) 0%,transparent 62%),linear-gradient(155deg,#100e0b,#1a1611,#0c0a09)"></div><img src="images/img_045_4e7d65b109e1.jpg" class="real-img"></div>
+      <div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 45% 55%,rgba(196,149,90,.07) 0%,transparent 60%),linear-gradient(160deg,#0f0d0b,#191511)"></div><img src="images/img_046_dcadabb04324.jpg" class="real-img"></div>
+      <div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 60% 42%,rgba(170,135,80,.08) 0%,transparent 60%),linear-gradient(150deg,#0e0c0a,#171310)"></div><img src="images/img_047_dc3451e077bf.jpg" class="real-img"></div>
+      <div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 35%,rgba(170,190,200,.045) 0%,transparent 55%),linear-gradient(140deg,#0d0c0b,#161413)"></div><img src="images/img_048_561ddce0daaa.jpg" class="real-img"></div>
+      <div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 32% 50%,rgba(196,149,90,.09) 0%,transparent 62%),linear-gradient(155deg,#100e0b,#1a1611,#0c0a09)"></div><img src="images/img_049_46c444344961.jpg" class="real-img"></div>
+    </div>
+  </div>
+  <div class="pn">18 / 47</div>
+</div>
+
+<div class="s" id="pr3_zones2">
+  <div style="position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:0">
+    <div style="display:flex;flex-direction:column;border-right:1px solid rgba(196,149,90,.15)">
+      <div style="padding:var(--pv) var(--p) clamp(8px,1.4vh,16px)"><div class="lbl" style="letter-spacing:.45em;margin-bottom:6px">Zona de Noapte</div><div class="head" style="font-size:clamp(15px,2vw,24px)">Dormitor Matrimonial</div></div>
+      <div class="ph" style="position:relative;flex:1;margin:0 var(--p) var(--pv)"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 32% 50%,rgba(196,149,90,.09) 0%,transparent 62%),linear-gradient(155deg,#100e0b,#1a1611,#0c0a09)"></div><img src="images/img_050_2645ccf3eb17.jpg" class="real-img"></div>
+    </div>
+    <div style="display:flex;flex-direction:column">
+      <div style="padding:var(--pv) clamp(16px,2.5vw,32px) clamp(8px,1.4vh,16px)"><div class="lbl" style="letter-spacing:.45em;margin-bottom:6px">Zona de Noapte</div><div class="head" style="font-size:clamp(15px,2vw,24px)">Dormitor Secundar</div></div>
+      <div class="ph" style="position:relative;flex:1;margin:0 clamp(16px,2.5vw,32px) var(--pv)"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 45% 55%,rgba(196,149,90,.07) 0%,transparent 60%),linear-gradient(160deg,#0f0d0b,#191511)"></div><img src="images/img_051_aaa40300ad65.jpg" class="real-img"></div>
+    </div>
+  </div>
+  <div class="pn">19 / 47</div>
+</div>
+
+<div class="s" id="pr3_rend">
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:var(--pv) var(--p);gap:clamp(8px,1.3vh,14px)">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;flex-shrink:0"><div class="head" style="font-size:clamp(16px,2.1vw,26px)">CONCEPT, MATERIALE &amp; TRANSFORMAREA SPAȚIULUI</div><div class="cap" style="font-size:7.5px">03 · Cipru</div></div>
+    <div class="lns" style="flex-shrink:0"></div>
+    <div style="flex:1;display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(2,1fr);gap:clamp(7px,1.1vh,13px)"><div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 32% 50%,rgba(196,149,90,.09) 0%,transparent 62%),linear-gradient(155deg,#100e0b,#1a1611,#0c0a09)"></div><img src="images/img_052_5f29b1bc373d.jpg" class="real-img"></div><div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 60% 42%,rgba(170,135,80,.08) 0%,transparent 60%),linear-gradient(150deg,#0e0c0a,#171310)"></div><img src="images/img_053_b0d32ed40446.jpg" class="real-img"></div><div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 45% 55%,rgba(196,149,90,.07) 0%,transparent 60%),linear-gradient(160deg,#0f0d0b,#191511)"></div><img src="images/img_054_8b95c8a64459.jpg" class="real-img"></div><div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 35%,rgba(170,190,200,.045) 0%,transparent 55%),linear-gradient(140deg,#0d0c0b,#161413)"></div><img src="images/img_055_a62922472612.jpg" class="real-img"></div></div>
+  </div>
+  <div class="pn">20 / 47</div>
+</div>
+
+<div class="s" id="pr3_plans">
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:var(--pv) var(--p);gap:clamp(8px,1.3vh,14px)">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;flex-shrink:0"><div class="head" style="font-size:clamp(16px,2.1vw,26px)">Plan Plafon &amp; Plan de Mobilare</div><div class="cap" style="font-size:7.5px">03 · Cipru</div></div>
+    <div class="lns" style="flex-shrink:0"></div>
+    <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:clamp(8px,1.4vw,18px)">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div class="ph grid" style="position:relative;flex:1"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 35%,rgba(170,190,200,.045) 0%,transparent 55%),linear-gradient(140deg,#0d0c0b,#161413)"></div><img src="images/img_056_2e4b6b68bad0.jpg" class="real-img"></div>
+        <div class="cap" style="font-size:7.5px;text-align:center">Plan reflectat de tavan — scenarii de iluminat</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div class="ph grid" style="position:relative;flex:1"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 35%,rgba(170,190,200,.045) 0%,transparent 55%),linear-gradient(140deg,#0d0c0b,#161413)"></div><img src="images/img_057_78c0e76eb990.jpg" class="real-img"></div>
+        <div class="cap" style="font-size:7.5px;text-align:center">Plan de mobilare — organizare funcțională</div>
+      </div>
+    </div>
+  </div>
+  <div class="pn">21 / 47</div>
+</div>
+
+<div class="s" id="pr3_furn">
+  <div style="position:absolute;inset:0;display:grid;grid-template-columns:1.25fr 1fr;gap:0">
+    <div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:clamp(7px,1vh,12px);padding:var(--pv) clamp(16px,2.5vw,30px);border-right:1px solid rgba(196,149,90,.15)">
+      <div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 60% 42%,rgba(170,135,80,.08) 0%,transparent 60%),linear-gradient(150deg,#0e0c0a,#171310)"></div><img src="images/img_058_0dbcbe04d7a6.jpg" class="real-img"></div>
+      <div class="ph grid" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 35%,rgba(170,190,200,.045) 0%,transparent 55%),linear-gradient(140deg,#0d0c0b,#161413)"></div><img src="images/img_059_69b44e3ab452.jpg" class="real-img"></div>
+      <div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 45% 55%,rgba(196,149,90,.07) 0%,transparent 60%),linear-gradient(160deg,#0f0d0b,#191511)"></div><img src="images/img_060_b2a9f257d3bf.jpg" class="real-img"></div>
+      <div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 32% 50%,rgba(196,149,90,.09) 0%,transparent 62%),linear-gradient(155deg,#100e0b,#1a1611,#0c0a09)"></div><img src="images/img_061_1f7aacba7f94.jpg" class="real-img"></div>
+    </div>
+    <div style="display:flex;flex-direction:column;justify-content:center;padding:var(--pv) clamp(18px,2.5vw,34px)">
+      <div class="lbl" style="margin-bottom:clamp(12px,2vh,20px);letter-spacing:.45em">MOBILIER PERSONALIZAT</div>
+      <div class="head" style="font-size:clamp(16px,2.1vw,28px);margin-bottom:clamp(10px,1.6vh,16px)">MOBILIER PERSONALIZAT &amp; DETALII DE EXECUȚIE</div>
+      <div class="lns" style="width:40px;margin:clamp(10px,1.8vh,20px) 0"></div>
+      <div class="body"><p data-start="892" data-end="1260">Proiectul a inclus dezvoltarea mobilierului personalizat de la etapa conceptuală până la elaborarea documentației tehnice necesare execuției. Au fost realizate planuri, elevații, secțiuni și detalii constructive pentru principalele elemente integrate în amenajare, inclusiv biblioteca zonei de zi, vitrinele decorative, dressingul matrimonial și mobilierul bucătăriei.</p><p data-start="892" data-end="1260"><br></p><p data-start="892" data-end="1260"><br></p><p data-start="668" data-end="948">
+</p><p data-start="1262" data-end="1622">Documentația tehnică a urmărit coordonarea precisă a materialelor, sistemelor de feronerie și a soluțiilor de iluminat integrat, asigurând coerența dintre intenția de proiectare și implementarea finală. Materialele predominante includ furnirul natural de stejar, panourile decorative din ratan, suprafețele FENIX și accentele metalice cu finisaj bronz satinat.</p></div>
+      <div style="margin-top:clamp(12px,2vh,24px)"><div class="lbl" style="font-size:7.5px;margin-bottom:9px">Paletă de Materiale</div><div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap"><input type="color" class="pal-dot" value="#C9A36B" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><input type="color" class="pal-dot" value="#EFE7D8" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><input type="color" class="pal-dot" value="#7E6A52" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><input type="color" class="pal-dot" value="#3A322B" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><input type="color" class="pal-dot" value="#A9B0AE" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><div class="body" style="font-size:8.5px;margin-left:6px;opacity:.6">Furnir natural de stejar • Ratan împletit • MDF vopsit mat • Accente metalice bronz satinat • Sticlă decorativă • Iluminat LED integrat</div></div></div>
+    </div>
+  </div>
+  <div class="pn">22 / 47</div>
+</div>
+
+<div class="s" id="pr4_cover">
+  <div class="ph" style="position:absolute;inset:0;z-index:1">
+    
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 35% 55%,rgba(220,170,80,.11) 0%,transparent 60%),linear-gradient(160deg,#100d0a,#1b1611,#0c0a08)"></div>
+  <img src="images/img_062_6ffd5285be81.jpg" class="real-img"></div>
+  <div style="position:absolute;bottom:0;left:0;right:0;height:66%;z-index:4;pointer-events:none;background:linear-gradient(to top,rgba(9,9,8,.98) 0%,rgba(9,9,8,.62) 52%,transparent 100%)"></div>
+  <div style="position:absolute;top:0;left:0;bottom:0;width:3px;z-index:4;background:linear-gradient(to bottom,transparent,var(--gd) 25%,var(--gd) 75%,transparent);opacity:.4"></div>
+  <div class="txt-layer" style="position:absolute;bottom:clamp(60px,10vh,100px);left:var(--p);right:var(--p);z-index:6">
+    <div class="lbl" style="margin-bottom:10px;letter-spacing:.45em">Proiect 04</div>
+    <div class="proj-num" style="line-height:1;margin-bottom:clamp(6px,1vh,12px)">04</div>
+    <div class="disp" style="font-size:clamp(28px,4.2vw,58px);margin-bottom:6px">Rezidență Privată — Elveția | Design Complet&nbsp;<div>·<span style="font-size: clamp(28px, 4.2vw, 58px); letter-spacing: 0.15em;">Tur Virtual 360°</span></div></div>
+    <div class="lns" style="width:60px;margin:clamp(10px,1.6vh,18px) 0"></div>
+    <div style="display:flex;align-items:center;gap:clamp(12px,2vw,24px);flex-wrap:wrap"><span class="body" style="font-size:10px;opacity:.6">Elveția ·&nbsp; 2025</span><span style="width:1px;height:13px;background:rgba(196,149,90,.3)"></span><span class="body" style="font-size:10px;opacity:.6">Apartament · Design Complet</span><span style="width:1px;height:13px;background:rgba(196,149,90,.3)"></span><span class="body" style="font-size:10px;opacity:.6">Tur Virtual 360°</span><span style="width:1px;height:13px;background:rgba(196,149,90,.3)"></span><span class="tag">Rezidențial</span></div>
+  </div>
+  <div class="pn">23 / 47</div>
+</div>
+
+<div class="s" id="pr4_plan">
+  <div style="position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:0">
+    <div style="display:flex;flex-direction:column;border-right:1px solid rgba(196,149,90,.15)">
+      <div style="padding:var(--pv) var(--p) clamp(8px,1.4vh,16px)"><div class="cap" style="margin-bottom:6px">04 · Elveția</div><div class="head" style="font-size:clamp(15px,2vw,24px)"><span style="letter-spacing: 2.4px; background-color: rgb(9, 9, 8);">Plan 2D iluminat</span></div></div>
+      <div class="ph" style="position:relative;flex:1;margin:0 var(--p) var(--pv)"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 45% 55%,rgba(196,149,90,.07) 0%,transparent 60%),linear-gradient(160deg,#0f0d0b,#191511)"></div><img src="images/img_063_7fc282548802.jpg" class="real-img"></div>
+    </div>
+    <div style="display:flex;flex-direction:column">
+      <div style="padding:var(--pv) clamp(16px,2.5vw,32px) clamp(8px,1.4vh,16px)"><div class="cap" style="margin-bottom:6px">04 · Elveția</div><div class="head" style="font-size:clamp(15px,2vw,24px)">Plan 2D Mobilare</div></div>
+      <div class="ph grid" style="position:relative;flex:1;margin:0 clamp(16px,2.5vw,32px) var(--pv)"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 35%,rgba(170,190,200,.045) 0%,transparent 55%),linear-gradient(140deg,#0d0c0b,#161413)"></div><img src="images/img_064_2ff6ea8b5813.jpg" class="real-img"></div>
+    </div>
+  </div>
+  <div class="pn">24 / 47</div>
+</div>
+
+<div class="s" id="pr4_rend">
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:var(--pv) var(--p);gap:clamp(8px,1.3vh,14px)">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;flex-shrink:0"><div class="head" style="font-size:clamp(16px,2.1vw,26px)"><span style="letter-spacing: 2.6px;">Randări</span></div><div class="cap" style="font-size:7.5px">04 · Elveția</div></div>
+    <div class="lns" style="flex-shrink:0"></div>
+    <div style="flex:1;display:grid;grid-template-columns:1.5fr 1fr;gap:clamp(7px,1.1vh,13px)">
+      <div class="ph" style="position:relative;grid-row:span 2"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 32% 50%,rgba(196,149,90,.09) 0%,transparent 62%),linear-gradient(155deg,#100e0b,#1a1611,#0c0a09)"></div><img src="images/img_065_d891839de5e1.jpg" class="real-img"></div>
+      <div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 60% 42%,rgba(170,135,80,.08) 0%,transparent 60%),linear-gradient(150deg,#0e0c0a,#171310)"></div><img src="images/img_066_4f271452af53.jpg" class="real-img"></div>
+      <div style="display:flex;flex-direction:column;background:rgba(255,255,255,.015);border:1px solid rgba(196,149,90,.12);padding:clamp(10px,1.6vh,18px)">
+        <div class="lbl" style="font-size:7.5px;margin-bottom:8px">Moodboard &amp; Finisaje</div>
+        <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:6px">
+          <div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 45% 55%,rgba(196,149,90,.07) 0%,transparent 60%),linear-gradient(160deg,#0f0d0b,#191511)"></div><img src="images/img_067_a042d3971fe2.jpg" class="real-img"></div><div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 35%,rgba(170,190,200,.045) 0%,transparent 55%),linear-gradient(140deg,#0d0c0b,#161413)"></div><img src="images/img_068_8d848eba432a.jpg" class="real-img"></div>
+        </div>
+        <div style="margin-top:clamp(12px,2vh,24px)"><div class="lbl" style="font-size:7.5px;margin-bottom:9px">Paletă de Materiale</div><div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap"><input type="color" class="pal-dot" value="#BFA178" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><input type="color" class="pal-dot" value="#ECE3D4" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><input type="color" class="pal-dot" value="#6F5C46" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><input type="color" class="pal-dot" value="#33403C" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><input type="color" class="pal-dot" value="#C7BBA6" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><div class="body" style="font-size:8.5px;margin-left:6px;opacity:.6">Stejar · Crem · Nuc · Petrol · Bej</div></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="pn">25 / 47</div>
+</div>
+
+<div class="s" id="pr4_360">
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:var(--pv) var(--p);gap:clamp(8px,1.3vh,14px)">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;flex-shrink:0"><div class="head" style="font-size:clamp(16px,2.1vw,26px)">Tur Virtual 360°</div><div class="cap" style="font-size:7.5px">04 · Elveția</div></div>
+    <div class="lns" style="flex-shrink:0"></div>
+    <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:clamp(7px,1.1vh,13px)">
+      <div class="kuula-embed" id="elvetiaEmbed1"><div style="position:absolute;z-index:5;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(10,8,6,.18);transition:background .25s" onmouseover="this.style.background=\&#39;rgba(10,8,6,.32)\&#39;" onmouseout="this.style.background=\&#39;rgba(10,8,6,.18)\&#39;"><div style="display:flex;flex-direction:column;align-items:center;gap:10px"><div style="width:clamp(48px,6vw,72px);height:clamp(48px,6vw,72px);border-radius:50%;background:rgba(196,149,90,.92);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(0,0,0,.4)"><div style="width:0;height:0;border-top:clamp(8px,1vw,13px) solid transparent;border-bottom:clamp(8px,1vw,13px) solid transparent;border-left:clamp(13px,1.6vw,20px) solid #0d0b09;margin-left:3px"></div></div><div class="lbl" style="font-size:7.5px;letter-spacing:.35em;color:#fff;background:rgba(10,8,6,.55);padding:5px 12px;border-radius:2px">TUR VIRTUAL 360°</div></div></div><div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 32% 50%,rgba(196,149,90,.09) 0%,transparent 62%),linear-gradient(155deg,#100e0b,#1a1611,#0c0a09)"></div><img src="images/img_069_ee5f31b6e5c1.jpg" class="real-img"><div class="kuula-poster" onclick="this.parentElement.classList.add(&#39;playing&#39;); this.parentElement.querySelector(&#39;iframe&#39;).src=this.parentElement.querySelector(&#39;iframe&#39;).dataset.src;">
+        <div class="kuula-play-btn">
+          <div class="kuula-play-circle"><div class="kuula-play-tri"></div></div>
+          <div class="lbl" style="font-size:7.5px;letter-spacing:.35em;color:#fff;background:rgba(10,8,6,.55);padding:5px 12px;border-radius:2px">TUR VIRTUAL 360°</div>
+        </div>
+      </div>
+      <iframe data-src="https://kuula.co/share/collection/7HT9q?logo=0&amp;info=0&amp;fs=1&amp;vr=1&amp;sd=1&amp;initload=0&amp;thumbs=1" allow="xr-spatial-tracking; gyroscope; accelerometer" allowfullscreen="" scrolling="no" loading="lazy"></iframe>
+    </div>
+      <div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 60% 42%,rgba(170,135,80,.08) 0%,transparent 60%),linear-gradient(150deg,#0e0c0a,#171310)"></div><img src="images/img_070_bb1d39aa6ac6.jpg" class="real-img"></div>
+      <div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 45% 55%,rgba(196,149,90,.07) 0%,transparent 60%),linear-gradient(160deg,#0f0d0b,#191511)"></div><img src="images/img_071_93eca8462163.jpg" class="real-img"></div>
+      <div style="display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:clamp(8px,1.4vh,16px);background:rgba(196,149,90,.05);border:1px solid rgba(196,149,90,.2);padding:clamp(16px,2.5vw,30px)">
+        <div class="img-overlay-icon" style="font-size:26px;opacity:.7">◐</div>
+        <div class="lbl" style="letter-spacing:.4em">Experiență Imersivă</div>
+        <div class="head" style="font-size:clamp(13px,1.7vw,20px)">Tur Virtual Interactiv 360°</div>
+        <div class="body" style="font-size:9.5px">Explorează apartamentul într-un tur panoramic complet. Link Kuula:</div>
+        <a href="https://kuula.co/share/collection/7HT9q?logo=0&amp;info=0&amp;fs=1&amp;vr=1&amp;sd=1&amp;initload=0&amp;thumbs=1" target="_blank" rel="noopener" class="kuula-link-btn" style="margin-top:2px">
+          <div class="kuula-play-tri" style="border-left-color:var(--gd)"></div>
+          <div class="body" style="font-size:10px;word-break:break-all;max-width:380px;color:var(--gd);margin:0">https://kuula.co/share/collection/7HT9q</div>
+        </a>
+        <div class="cap" style="font-size:7px;opacity:.5"><p class="font-claude-response-body break-words whitespace-normal">Proiect rezidențial complet dezvoltat pentru un apartament privat în Elveția,&nbsp;</p><p class="font-claude-response-body break-words whitespace-normal"><br></p><p class="font-claude-response-body break-words whitespace-normal">destinat locuirii permanente. Conceptul integrează claritate spațială, continuitate&nbsp;</p><p class="font-claude-response-body break-words whitespace-normal"><br></p><p class="font-claude-response-body break-words whitespace-normal">materială și lumină naturală controlată, rezultând o atmosferă calmă și rafinată,&nbsp;</p><p class="font-claude-response-body break-words whitespace-normal"><br></p><p class="font-claude-response-body break-words whitespace-normal">adaptată stilului de viață elvețian.</p><p class="font-claude-response-body break-words whitespace-normal"><br></p>
+<p class="font-claude-response-body break-words whitespace-normal">Proiectul a fost livrat la nivel de execuție — planuri tehnice cotate în franceză,&nbsp;</p><p class="font-claude-response-body break-words whitespace-normal"><br></p><p class="font-claude-response-body break-words whitespace-normal">specificații de mobilier, strategie de iluminat și tur virtual interactiv 360° prin Kuula.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="pn">26 / 47</div>
+</div>
+
+<div class="s" id="pr5_cover">
+  <div class="ph" style="position:absolute;top:0;left:0;width:64%;height:100%">
+    
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 35% 55%,rgba(220,170,80,.11) 0%,transparent 60%),linear-gradient(160deg,#100d0a,#1b1611,#0c0a08)"></div>
+    <div style="position:absolute;top:0;right:0;bottom:0;width:2px;background:linear-gradient(to bottom,transparent,var(--gd) 30%,var(--gd) 70%,transparent);opacity:.5"></div>
+  <img src="images/img_072_021e25717420.jpg" class="real-img"></div>
+  <div style="position:absolute;top:0;left:64%;right:0;bottom:0;display:flex;flex-direction:column;justify-content:center;padding:var(--pv) clamp(16px,2.5vw,36px)">
+    <div class="proj-num">05</div>
+    <div class="lns" style="width:30px;margin:clamp(10px,1.8vh,20px) 0"></div>
+    <div class="lbl" style="margin-bottom:8px;letter-spacing:.4em">Proiect 05</div>
+    <div class="head" style="font-size:clamp(14px,2vw,26px);margin-bottom:clamp(8px,1.3vh,16px)"><span style="font-size: 58px; letter-spacing: 8.7px;">CONVERSIE SUBSOL</span><div><div><span style="font-size: 58px; letter-spacing: 8.7px;">SPAȚIU MULTIFUNCȚIONAL</span></div></div></div>
+    <div class="lbl" style="color:var(--cr2);font-size:7.5px;margin-bottom:clamp(12px,2vh,22px)">Statele Unite · An 2025</div>
+    <div class="lns" style="width:30px;margin:0 0 clamp(12px,1.8vh,22px)"></div>
+    <div class="body" style="font-size:clamp(9px,.95vw,11.5px)">Reconversia nivelului inferior într-un spațiu de locuit complet — zonă de zi, relaxare și entertainment, tratate într-o atmosferă caldă și contemporană.<div><br></div><div><p class="font-claude-response-body break-words whitespace-normal"><strong>LIVING &amp; ENTERTAINMENT:</strong></p>
+<blockquote class="ml-2 border-l-4 border-[hsl(var(--border-300)/0.1)] pl-4 text-text-300">
+<p class="font-claude-response-body break-words whitespace-normal">Zona de zi constituie nucleul social al subsolului. Iluminatul controlat, depozitarea integrată și paleta neutră de materiale creează un cadru confortabil pentru relaxare și întâlniri informale.</p><p class="font-claude-response-body break-words whitespace-normal"><br></p><p class="font-claude-response-body break-words whitespace-normal"><br></p>
+</blockquote>
+<p class="font-claude-response-body break-words whitespace-normal"><strong>WET BAR:</strong></p>
+<blockquote class="ml-2 border-l-4 border-[hsl(var(--border-300)/0.1)] pl-4 text-text-300">
+<p class="font-claude-response-body break-words whitespace-normal">Conceput ca punct focal social, wet bar-ul integrează funcționalitate și estetică hospitality. Mobilier modular și iluminat integrat definesc zona, menținând continuitatea vizuală cu livingul adiacent.</p><p class="font-claude-response-body break-words whitespace-normal"><br></p><p class="font-claude-response-body break-words whitespace-normal"><br></p>
+</blockquote>
+<p class="font-claude-response-body break-words whitespace-normal"><strong>DORMITOR OASPEȚI:</strong></p>
+<blockquote class="ml-2 border-l-4 border-[hsl(var(--border-300)/0.1)] pl-4 text-text-300">
+<p class="font-claude-response-body break-words whitespace-normal">Dormitorul este conceput pentru șederi îndelungate, cu accent pe confort, intimitate și claritate spațială. Linii curate, depozitare integrată și o paletă restrained definesc un mediu calm și odihnitor.</p><p class="font-claude-response-body break-words whitespace-normal"><br></p><p class="font-claude-response-body break-words whitespace-normal"><br></p>
+</blockquote>
+<p class="font-claude-response-body break-words whitespace-normal"><strong>BAIE:</strong></p>
+<blockquote class="ml-2 border-l-4 border-[hsl(var(--border-300)/0.1)] pl-4 text-text-300">
+<p class="font-claude-response-body break-words whitespace-normal">Baia prioritizează accesibilitatea, confortul și funcționalitatea pe termen lung. Duș walk-in, depozitare integrată și iluminat controlat definesc un spațiu coerent vizual cu limbajul general al subsolului.</p><p class="font-claude-response-body break-words whitespace-normal"><br></p><p class="font-claude-response-body break-words whitespace-normal"><br></p>
+</blockquote>
+<p class="font-claude-response-body break-words whitespace-normal"><strong>WINE ROOM:</strong></p>
+<blockquote class="ml-2 border-l-4 border-[hsl(var(--border-300)/0.1)] pl-4 text-text-300">
+<p class="font-claude-response-body break-words whitespace-normal">Wine room-ul este conceput ca un mediu de depozitare controlat și intim, cu rafturi custom și iluminat cald pentru funcționalitate și display.</p><p class="font-claude-response-body break-words whitespace-normal"><br></p><p class="font-claude-response-body break-words whitespace-normal"><br></p>
+</blockquote>
+<p class="font-claude-response-body break-words whitespace-normal"><strong>HOL INTRARE:</strong></p>
+<blockquote class="ml-2 border-l-4 border-[hsl(var(--border-300)/0.1)] pl-4 text-text-300">
+<p class="font-claude-response-body break-words whitespace-normal">Holul funcționează ca spațiu de tranziție, stabilind continuitatea materială și ghidând circulația spre zonele principale.</p></blockquote></div></div>
+    <div style="margin-top:clamp(16px,2.5vh,28px)"><span class="tag" style="margin-right:6px">Rezidențial</span><span class="tag" style="margin-right:6px">Conversie</span></div>
+  </div>
+  <div class="pn">27 / 47</div>
+</div>
+
+<div class="s" id="pr5_plan">
+  <div style="position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:0">
+    <div style="display:flex;flex-direction:column;border-right:1px solid rgba(196,149,90,.15)">
+      <div style="padding:var(--pv) var(--p) clamp(8px,1.4vh,16px)"><div class="cap" style="margin-bottom:6px">05 · SUA</div><div class="head" style="font-size:clamp(15px,2vw,24px)">Situația Existentă<div><span style="color: rgb(168, 163, 155); font-family: Barlow, system-ui, sans-serif; font-size: 13px; letter-spacing: normal; text-transform: none;">Subsolul în starea inițială — spațiu tehnic și de depozitare, fără definire funcțională, fără calități spațiale sau de locuire. Punctul de plecare al transformării.</span><span style="background-color: rgb(9, 9, 8); color: rgb(168, 163, 155); font-family: Barlow, system-ui, sans-serif; font-size: 11.5px; letter-spacing: normal; text-transform: none;">&nbsp;</span></div></div></div>
+      <div class="ph" style="position:relative;flex:1;margin:0 var(--p) var(--pv)"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 45% 55%,rgba(196,149,90,.07) 0%,transparent 60%),linear-gradient(160deg,#0f0d0b,#191511)"></div><img src="images/img_073_5994c47905ed.jpg" class="real-img"></div>
+    </div>
+    <div style="display:flex;flex-direction:column">
+      <div style="padding:var(--pv) clamp(16px,2.5vw,32px) clamp(8px,1.4vh,16px)"><div class="cap" style="margin-bottom:6px">05 · SUA</div><div class="head" style="font-size:clamp(15px,2vw,24px)">Plan de Amenajare<div><span style="color: rgb(168, 163, 155); font-family: Barlow, system-ui, sans-serif; font-size: 13px; letter-spacing: normal; text-transform: none;">Layoutul propus organizează subsolul în zone distincte și complementare: living &amp; entertainment, wet bar, dormitor oaspeți cu depozitare integrată, baie accesibilă, wine room și hol de intrare. Circulațiile sunt clare, fiecare zonă beneficiind de intimitate și conexiune vizuală controlată.</span></div></div></div>
+      <div class="ph grid" style="position:relative;flex:1;margin:0 clamp(16px,2.5vw,32px) var(--pv)"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 35%,rgba(170,190,200,.045) 0%,transparent 55%),linear-gradient(140deg,#0d0c0b,#161413)"></div><img src="images/img_074_3a2f2eec8d61.jpg" class="real-img"></div>
+    </div>
+  </div>
+  <div class="pn">28 / 47</div>
+</div>
+
+<div class="s" id="pr5_rend">
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:var(--pv) var(--p);gap:clamp(8px,1.3vh,14px)">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;flex-shrink:0"><div class="head" style="font-size:clamp(16px,2.1vw,26px)">Randări Interioare<div><span style="color: rgb(168, 163, 155); font-family: Barlow, system-ui, sans-serif; font-size: 13px; letter-spacing: normal; text-transform: none;">Vizualizările redau atmosfera finală a fiecărei zone — materialele calde, iluminatul integrat și detaliile de mobilier care definesc caracterul spațiului.</span></div></div><div class="cap" style="font-size:7.5px">05 · Subsol · SUA</div></div>
+    <div class="lns" style="flex-shrink:0"></div>
+    <div style="flex:1;display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(2,1fr);gap:clamp(7px,1.1vh,13px)"><div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 32% 50%,rgba(196,149,90,.09) 0%,transparent 62%),linear-gradient(155deg,#100e0b,#1a1611,#0c0a09)"></div><img src="images/img_075_6e90b5bafb75.jpg" class="real-img"></div><div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 60% 42%,rgba(170,135,80,.08) 0%,transparent 60%),linear-gradient(150deg,#0e0c0a,#171310)"></div><img src="images/img_076_e67fbbfad277.jpg" class="real-img"></div><div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 45% 55%,rgba(196,149,90,.07) 0%,transparent 60%),linear-gradient(160deg,#0f0d0b,#191511)"></div><img src="images/img_077_beb813f6c802.jpg" class="real-img"></div><div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 35%,rgba(170,190,200,.045) 0%,transparent 55%),linear-gradient(140deg,#0d0c0b,#161413)"></div><img src="images/img_078_578ca8e3db53.jpg" class="real-img"></div></div>
+  </div>
+  <div class="pn">29 / 47</div>
+</div>
+
+<div class="s" id="pr5_fin">
+  <div style="position:absolute;inset:0;display:grid;grid-template-columns:1fr 1.2fr;gap:0">
+    <div style="display:flex;flex-direction:column;justify-content:center;padding:var(--pv) var(--p);border-right:1px solid rgba(196,149,90,.15)">
+      <div class="lbl" style="margin-bottom:clamp(12px,2vh,20px);letter-spacing:.48em">Finisaje</div>
+      <div class="head" style="font-size:clamp(16px,2.1vw,28px);margin-bottom:clamp(10px,1.6vh,16px)">Materiale &amp; Texturi</div>
+      <div class="lns" style="width:40px;margin:clamp(10px,1.8vh,20px) 0"></div>
+      <div class="body">Fiecare material a fost ales pentru capacitatea sa de a crea căldură și profunzime vizuală într-un spațiu fără lumină naturală directă. Lemnul deschis — pe pardoseli și tavane riflate — asigură continuitatea și confortul spațiului. Cărămida aparentă introduce textura autentică, iar gresia Aloe Green și terazzo-ul aduc accente de caracter în zonele umede. Detaliile metalice în antracit mat ancorează designul într-un limbaj contemporan sobru.<div><br></div><div>Luxury Vinyl Plank · Cubie Boo — pardoseli&nbsp;</div><div>Panou riflat · lemn natural — tavane &amp; perete&nbsp;</div><div>Ceramic Brick Mosaic — accent perete&nbsp;</div><div>Porcelain · Aloe Green — baie&nbsp;</div><div>Terrazzo — zone umede</div></div>
+      <div style="margin-top:clamp(12px,2vh,24px)"><div class="lbl" style="font-size:7.5px;margin-bottom:9px">Paletă de Materiale</div><div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap"><input type="color" class="pal-dot" value="#A8794D" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><input type="color" class="pal-dot" value="#E4D9C6" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><input type="color" class="pal-dot" value="#5E4C3A" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><input type="color" class="pal-dot" value="#2B2521" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><input type="color" class="pal-dot" value="#B98E54" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><div class="body" style="font-size:8.5px;margin-left:6px;opacity:.6">Lemn natural · Crem · Verde Aloe · Terrazzo · Antracit · Cărămidă</div></div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:clamp(7px,1vh,12px);padding:var(--pv) clamp(16px,2.5vw,30px)">
+      <div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 60% 42%,rgba(170,135,80,.08) 0%,transparent 60%),linear-gradient(150deg,#0e0c0a,#171310)"></div><img src="images/img_079_6e2fed1cb656.jpg" class="real-img"></div><div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 45% 55%,rgba(196,149,90,.07) 0%,transparent 60%),linear-gradient(160deg,#0f0d0b,#191511)"></div><img src="images/img_080_a2358738150b.jpg" class="real-img"></div>
+      <div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 35%,rgba(170,190,200,.045) 0%,transparent 55%),linear-gradient(140deg,#0d0c0b,#161413)"></div><img src="images/img_081_d722c707c170.jpg" class="real-img"></div><div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 32% 50%,rgba(196,149,90,.09) 0%,transparent 62%),linear-gradient(155deg,#100e0b,#1a1611,#0c0a09)"></div><img src="images/img_082_52879a243d40.jpg" class="real-img"></div>
+    </div>
+  </div>
+  <div class="pn">30 / 47</div>
+</div>
+
+<div class="s" id="pr6_cover">
+  <div class="ph" style="position:absolute;inset:0;z-index:1">
+    
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 35% 55%,rgba(220,170,80,.11) 0%,transparent 60%),linear-gradient(160deg,#100d0a,#1b1611,#0c0a08)"></div>
+  <img src="images/img_083_e040a12ebb2c.jpg" class="real-img"></div>
+  <div style="position:absolute;bottom:0;left:0;right:0;height:66%;z-index:4;pointer-events:none;background:linear-gradient(to top,rgba(9,9,8,.98) 0%,rgba(9,9,8,.62) 52%,transparent 100%)"></div>
+  <div style="position:absolute;top:0;left:0;bottom:0;width:3px;z-index:4;background:linear-gradient(to bottom,transparent,var(--gd) 25%,var(--gd) 75%,transparent);opacity:.4"></div>
+  <div class="txt-layer" style="position:absolute;bottom:clamp(60px,10vh,100px);left:var(--p);right:var(--p);z-index:6">
+    <div class="lbl" style="margin-bottom:10px;letter-spacing:.45em">Proiect 06</div>
+    <div class="proj-num" style="line-height:1;margin-bottom:clamp(6px,1vh,12px)">06</div>
+    <div class="disp" style="font-size:clamp(28px,4.2vw,58px);margin-bottom:6px">BIROURI EXECUTIVE — 3 CONCEPTE&nbsp;</div>
+    <div class="lns" style="width:60px;margin:clamp(10px,1.6vh,18px) 0"></div>
+    <div style="display:flex;align-items:center;gap:clamp(12px,2vw,24px);flex-wrap:wrap"><span class="body" style="font-size:10px;opacity:.6">SUA· An 2024</span><span style="width:1px;height:13px;background:rgba(196,149,90,.3)"></span><span class="body" style="font-size:10px;opacity:.6">Spațiu Comercial · Office</span><span style="width:1px;height:13px;background:rgba(196,149,90,.3)"></span><span class="body" style="font-size:10px;opacity:.6">3 Birouri Premium</span><span style="width:1px;height:13px;background:rgba(196,149,90,.3)"></span><span class="tag">Comercial</span><span class="tag">Corporate</span></div>
+  </div>
+  <div class="pn">31 / 47</div>
+</div>
+
+<div class="s" id="pr6_off">
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:var(--pv) var(--p);gap:clamp(8px,1.3vh,14px)">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;flex-shrink:0"><div class="head" style="font-size:clamp(16px,2.1vw,26px)">Trei Birouri Executive Premium</div><div class="cap" style="font-size:7.5px">06 · București</div></div>
+    <div class="lns" style="flex-shrink:0"></div>
+    <div style="flex:1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:clamp(8px,1.2vw,16px)">
+      <div style="display:flex;flex-direction:column;gap:8px"><div class="ph" style="position:relative;flex:1"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 32% 50%,rgba(196,149,90,.09) 0%,transparent 62%),linear-gradient(155deg,#100e0b,#1a1611,#0c0a09)"></div><img src="images/img_084_3d2e6605d56f.jpg" class="real-img"></div><div class="cap" style="font-size:7.5px;text-align:center">Birou Executiv I</div></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><div class="ph" style="position:relative;flex:1"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 60% 42%,rgba(170,135,80,.08) 0%,transparent 60%),linear-gradient(150deg,#0e0c0a,#171310)"></div><img src="images/img_085_588ab26e669a.jpg" class="real-img"></div><div class="cap" style="font-size:7.5px;text-align:center">Birou Executiv II</div></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><div class="ph" style="position:relative;flex:1"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 45% 55%,rgba(196,149,90,.07) 0%,transparent 60%),linear-gradient(160deg,#0f0d0b,#191511)"></div><img src="images/img_086_142add241043.jpg" class="real-img"></div><div class="cap" style="font-size:7.5px;text-align:center">Birou Executiv III</div></div>
+    </div>
+  </div>
+  <div class="pn">32 / 47</div>
+</div>
+
+<div class="s" id="pr6_plan">
+  <div style="position:absolute;inset:0;display:grid;grid-template-columns:1.3fr 1fr;gap:0">
+    <div style="display:flex;flex-direction:column;padding:var(--pv) clamp(16px,2.5vw,30px);border-right:1px solid rgba(196,149,90,.15)">
+      <div class="cap" style="margin-bottom:6px">06 · București</div><div class="head" style="font-size:clamp(15px,2vw,24px);margin-bottom:clamp(8px,1.4vh,14px)">Plan 2D — Organizare Spațială</div>
+      <div class="ph grid" style="position:relative;flex:1"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 35%,rgba(170,190,200,.045) 0%,transparent 55%),linear-gradient(140deg,#0d0c0b,#161413)"></div><img src="images/img_087_7f3ac4365bea.jpg" class="real-img"></div>
+    </div>
+    <div style="display:flex;flex-direction:column;justify-content:center;padding:var(--pv) clamp(18px,2.5vw,32px)">
+      <div class="lbl" style="margin-bottom:clamp(10px,1.8vh,18px);letter-spacing:.45em">Concept</div>
+      <div class="body">Trei spații de lucru reprezentative, fiecare cu identitate distinctă — de la dark luxury cu accente bronz, la warm natural&nbsp;<div>cu travertin și lemn chevron, până la elegant minimal cu tapet mural artistic. Fiecare birou reflectă personalitatea ocupantului,&nbsp;</div><div>menținând coerența materialelor și standardul premium al ansamblului.</div></div>
+      <div style="margin-top:clamp(12px,2vh,24px)"><div class="lbl" style="font-size:7.5px;margin-bottom:9px">Paletă de Materiale</div><div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap"><input type="color" class="pal-dot" value="#8C6B45" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><input type="color" class="pal-dot" value="#E6DDCD" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><input type="color" class="pal-dot" value="#4A4038" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><input type="color" class="pal-dot" value="#23201C" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><input type="color" class="pal-dot" value="#9AA0A2" title="Click pentru a schimba culoarea (Edit Mode)" data-bound="1"><div class="body" style="font-size:8.5px;margin-left:6px;opacity:.6">Marmură Calacatta · Lemn nuc · Travertin · Antracit mat · Alamă · Bronz · Tapet mural</div></div></div>
+    </div>
+  </div>
+  <div class="pn">33 / 47</div>
+</div>
+
+<div class="s" id="pr7_cover">
+  <div class="ph" style="position:absolute;top:0;left:0;width:60%;height:100%">
+    
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 35% 55%,rgba(220,170,80,.11) 0%,transparent 60%),linear-gradient(160deg,#100d0a,#1b1611,#0c0a08)"></div>
+    <div style="position:absolute;top:0;right:0;bottom:0;width:2px;background:linear-gradient(to bottom,transparent,var(--gd) 30%,var(--gd) 70%,transparent);opacity:.5"></div>
+  <img src="images/img_088_9296edd93a29.jpg" class="real-img"></div>
+  <div style="position:absolute;top:0;left:60%;right:0;bottom:0;display:flex;flex-direction:column;justify-content:center;padding:var(--pv) clamp(16px,2.5vw,36px)">
+    <div class="proj-num">07</div>
+    <div class="lns" style="width:30px;margin:clamp(10px,1.8vh,20px) 0"></div>
+    <div class="lbl" style="margin-bottom:8px;letter-spacing:.4em">Proiect 07</div>
+    <div class="head" style="font-size:clamp(14px,2vw,26px);margin-bottom:clamp(8px,1.3vh,16px)">Magazin Anetik — Amenajare<br>Spațiu Comercial</div>
+    <div class="lbl" style="color:var(--cr2);font-size:7.5px;margin-bottom:clamp(12px,2vh,22px)">SUA · An 2025 · COMERCIAL · RETAIL · CONCEPT</div>
+    <div class="lns" style="width:30px;margin:0 0 clamp(12px,1.8vh,22px)"></div>
+    <div class="body" style="font-size:clamp(9px,.95vw,11.5px)"><blockquote class="ml-2 border-l-4 border-[hsl(var(--border-300)/0.1)] pl-4 text-text-300"><p class="font-claude-response-body break-words whitespace-normal">Proiect de design interior comercial dezvoltat pentru brandul de echipament outdoor ANETIK, cu accent pe coerența dintre identitatea brandului și calitatea spațiului construit. Conceptul reinterpretează cultura outdoor și surf printr-un limbaj arhitectural contemporan, care îmbină materialitatea industrială cu căldura finisajelor naturale.</p><p class="font-claude-response-body break-words whitespace-normal"><br></p>
+</blockquote>
+<blockquote class="ml-2 border-l-4 border-[hsl(var(--border-300)/0.1)] pl-4 text-text-300">
+<p class="font-claude-response-body break-words whitespace-normal">Contrastul dintre tavanul cu tencuială minerală decorativă antracit mat și pardoseala SPC din stejar deschis structurează vertical percepția spațiului, conferindu-i profunzime și caracter. Pereții și mobilierul executați în furnir Urban Brown Oak asigură continuitatea materială și ancorează spațiul într-un registru autentic. Structurile industriale din metal negru mat pentru expunerea produselor completează limbajul vizual, menținând flexibilitatea operațională necesară unui spațiu retail.</p><p class="font-claude-response-body break-words whitespace-normal"><br></p>
+</blockquote>
+<blockquote class="ml-2 border-l-4 border-[hsl(var(--border-300)/0.1)] pl-4 text-text-300">
+<p class="font-claude-response-body break-words whitespace-normal">Organizarea funcțională urmează principiile retail design-ului contemporan — zonare clară, circulație ghidată, ierarhie vizuală controlată și integrarea elementelor de comunicare de brand în arhitectura interioară. Proiectul a fost livrat complet: plan cotat cu specificații de mobilier, documentație de materiale și randări de prezentare.</p>
+</blockquote></div>
+    <div style="margin-top:clamp(16px,2.5vh,28px)"><span class="tag" style="margin-right:6px">Comercial</span><span class="tag" style="margin-right:6px">Retail</span></div>
+  </div>
+  <div class="pn">34 / 47</div>
+</div>
+
+<div class="s" id="pr7_rend">
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:var(--pv) var(--p);gap:clamp(8px,1.3vh,14px)">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;flex-shrink:0"><div class="head" style="font-size:clamp(16px,2.1vw,26px)">Concept, Randări &amp; Plan 2D</div><div class="cap" style="font-size:7.5px">07 · Magazin Anetik</div></div>
+    <div class="lns" style="flex-shrink:0"></div>
+    <div style="flex:1;display:grid;grid-template-columns:1.4fr 1fr;grid-template-rows:1fr 1fr;gap:clamp(7px,1.1vh,13px)">
+      <div class="ph" style="position:relative;grid-row:span 2"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 32% 50%,rgba(196,149,90,.09) 0%,transparent 62%),linear-gradient(155deg,#100e0b,#1a1611,#0c0a09)"></div><img src="images/img_089_a75816e7df1f.jpg" class="real-img"></div>
+      <div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 60% 42%,rgba(170,135,80,.08) 0%,transparent 60%),linear-gradient(150deg,#0e0c0a,#171310)"></div><img src="images/img_090_05a882a9dfb4.jpg" class="real-img"></div>
+      <div class="ph grid" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 35%,rgba(170,190,200,.045) 0%,transparent 55%),linear-gradient(140deg,#0d0c0b,#161413)"></div><img src="images/img_091_0aaf13da0bda.jpg" class="real-img"></div>
+    </div>
+  </div>
+  <div class="pn">35 / 47</div>
+</div>
+
+<div class="s" id="pr8_cover">
+  <div class="ph" style="position:absolute;inset:0;z-index:1">
+    
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 35% 55%,rgba(220,170,80,.11) 0%,transparent 60%),linear-gradient(160deg,#100d0a,#1b1611,#0c0a08)"></div>
+  <img src="images/img_092_92bb5aaa7491.jpg" class="real-img"></div>
+  <div style="position:absolute;bottom:0;left:0;right:0;height:66%;z-index:4;pointer-events:none;background:linear-gradient(to top,rgba(9,9,8,.98) 0%,rgba(9,9,8,.62) 52%,transparent 100%)"></div>
+  <div style="position:absolute;top:0;left:0;bottom:0;width:3px;z-index:4;background:linear-gradient(to bottom,transparent,var(--gd) 25%,var(--gd) 75%,transparent);opacity:.4"></div>
+  <div class="txt-layer" style="position:absolute;bottom:clamp(60px,10vh,100px);left:var(--p);right:var(--p);z-index:6">
+    <div class="lbl" style="margin-bottom:10px;letter-spacing:.45em">Proiect 08</div>
+    <div class="proj-num" style="line-height:1;margin-bottom:clamp(6px,1vh,12px)">08</div>
+    <div class="disp" style="font-size:clamp(28px,4.2vw,58px);margin-bottom:6px">Stand Expozițional — Pulimav</div>
+    <div class="lns" style="width:60px;margin:clamp(10px,1.6vh,18px) 0"></div>
+    <div style="display:flex;align-items:center;gap:clamp(12px,2vw,24px);flex-wrap:wrap"><span class="body" style="font-size:10px;opacity:.6">Locație · An</span><span style="width:1px;height:13px;background:rgba(196,149,90,.3)"></span><span class="body" style="font-size:10px;opacity:.6">Spațiu Expozițional</span><span style="width:1px;height:13px;background:rgba(196,149,90,.3)"></span><span class="body" style="font-size:10px;opacity:.6">Design &amp; Vizualizare</span><span style="width:1px;height:13px;background:rgba(196,149,90,.3)"></span><span class="tag">Expozițional</span><span class="tag">Comercial</span></div>
+  </div>
+  <div class="pn">36 / 47</div>
+</div>
+
+<div class="s" id="pr8_plan">
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:var(--pv) var(--p);gap:clamp(8px,1.3vh,14px)">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;flex-shrink:0"><div class="head" style="font-size:clamp(16px,2.1vw,26px)">Randări &amp; Plan 2D</div><div class="cap" style="font-size:7.5px">08 · Stand Pulimav</div></div>
+    <div class="lns" style="flex-shrink:0"></div>
+    <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1.4fr 1fr;gap:clamp(7px,1.1vh,13px)">
+      <div class="ph" style="position:relative;grid-column:span 2"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 32% 50%,rgba(196,149,90,.09) 0%,transparent 62%),linear-gradient(155deg,#100e0b,#1a1611,#0c0a09)"></div><img src="images/img_093_3c1a5d2bc817.jpg" class="real-img"></div>
+      <div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 60% 42%,rgba(170,135,80,.08) 0%,transparent 60%),linear-gradient(150deg,#0e0c0a,#171310)"></div><img src="images/img_094_ad1972314dc0.jpg" class="real-img"></div>
+      <div class="ph grid" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 35%,rgba(170,190,200,.045) 0%,transparent 55%),linear-gradient(140deg,#0d0c0b,#161413)"></div><img src="images/img_095_b448e0032857.jpg" class="real-img"></div>
+    </div>
+  </div>
+  <div class="pn">37 / 47</div>
+</div>
+
+<div class="s" id="pr9_cover">
+  <div class="ph" style="position:absolute;top:0;left:0;width:58%;height:100%">
+    
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 35% 55%,rgba(220,170,80,.11) 0%,transparent 60%),linear-gradient(160deg,#100d0a,#1b1611,#0c0a08)"></div>
+    <div style="position:absolute;top:0;right:0;bottom:0;width:2px;background:linear-gradient(to bottom,transparent,var(--gd) 30%,var(--gd) 70%,transparent);opacity:.5"></div>
+  <img src="images/img_096_de875a774f5e.jpg" class="real-img"></div>
+  <div style="position:absolute;top:0;left:58%;right:0;bottom:0;display:flex;flex-direction:column;justify-content:center;padding:var(--pv) clamp(16px,2.5vw,36px)">
+    <div class="proj-num">09</div>
+    <div class="lns" style="width:30px;margin:clamp(10px,1.8vh,20px) 0"></div>
+    <div class="lbl" style="margin-bottom:8px;letter-spacing:.4em">Proiect 09</div>
+    <div class="head" style="font-size:clamp(14px,2vw,26px);margin-bottom:clamp(8px,1.3vh,16px)">Randări de Produs &amp;<br>Vizualizare 3D</div>
+    <div class="lbl" style="color:var(--cr2);font-size:7.5px;margin-bottom:clamp(12px,2vh,22px)">Produs · Mobilier&nbsp;</div>
+    <div class="lns" style="width:30px;margin:0 0 clamp(12px,1.8vh,22px)"></div>
+    <div class="body" style="font-size:clamp(9px,.95vw,11.5px)">Vizualizări fotorealiste de produs — șeminee, piese sectionate și obiecte de mobilier — completate de o animație 3D de 31 de secunde, realizată în 3ds Max &amp; Corona.</div>
+    <div style="margin-top:clamp(16px,2.5vh,28px)"><span class="tag" style="margin-right:6px">Produs</span><span class="tag" style="margin-right:6px">Animație 3D</span></div>
+  </div>
+  <div class="pn">38 / 47</div>
+</div>
+
+<div class="s" id="pr9_grid1">
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:var(--pv) var(--p);gap:clamp(8px,1.3vh,14px)">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;flex-shrink:0"><div class="head" style="font-size:clamp(16px,2.1vw,26px)">Galerie Randări de Produs</div><div class="cap" style="font-size:7.5px">09 · Vizualizare 3D</div></div>
+    <div class="lns" style="flex-shrink:0"></div>
+    <div style="flex:1;display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:clamp(7px,1.1vh,12px)">
+      <div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 32% 50%,rgba(196,149,90,.09) 0%,transparent 62%),linear-gradient(155deg,#100e0b,#1a1611,#0c0a09)"></div><img src="images/img_097_98d94cd877ae.jpg" class="real-img"></div><div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 60% 42%,rgba(170,135,80,.08) 0%,transparent 60%),linear-gradient(150deg,#0e0c0a,#171310)"></div><img src="images/img_098_af781d436ba0.jpg" class="real-img"></div><div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 45% 55%,rgba(196,149,90,.07) 0%,transparent 60%),linear-gradient(160deg,#0f0d0b,#191511)"></div><img src="images/img_099_b83cd17d2395.png" class="real-img"></div>
+      <div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 35%,rgba(170,190,200,.045) 0%,transparent 55%),linear-gradient(140deg,#0d0c0b,#161413)"></div><img src="images/img_100_db963fb1ca36.jpg" class="real-img"></div><div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 32% 50%,rgba(196,149,90,.09) 0%,transparent 62%),linear-gradient(155deg,#100e0b,#1a1611,#0c0a09)"></div><img src="images/img_101_637b45f3029c.jpg" class="real-img"></div><div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 60% 42%,rgba(170,135,80,.08) 0%,transparent 60%),linear-gradient(150deg,#0e0c0a,#171310)"></div><img src="images/img_102_ff519ca6d093.png" class="real-img"></div>
+    </div>
+  </div>
+  <div class="pn">39 / 47</div>
+</div>
+
+<div class="s" id="pr9_grid2">
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:var(--pv) var(--p);gap:clamp(8px,1.3vh,14px)">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;flex-shrink:0"><div class="head" style="font-size:clamp(16px,2.1vw,26px)">Produse &amp; Animație 3D</div><div class="cap" style="font-size:7.5px">09 · Vizualizare 3D</div></div>
+    <div class="lns" style="flex-shrink:0"></div>
+    <div style="flex:1;display:grid;grid-template-columns:1fr 1fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:clamp(7px,1.1vh,12px)">
+      <div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 45% 55%,rgba(196,149,90,.07) 0%,transparent 60%),linear-gradient(160deg,#0f0d0b,#191511)"></div><img src="images/img_103_1f5fefa07d05.jpg" class="real-img"></div><div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 35%,rgba(170,190,200,.045) 0%,transparent 55%),linear-gradient(140deg,#0d0c0b,#161413)"></div><img src="images/img_104_9fd155cf91a7.png" class="real-img"></div><div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 32% 50%,rgba(196,149,90,.09) 0%,transparent 62%),linear-gradient(155deg,#100e0b,#1a1611,#0c0a09)"></div><img src="images/img_105_2aa09115635b.png" class="real-img"></div><div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 60% 42%,rgba(170,135,80,.08) 0%,transparent 60%),linear-gradient(150deg,#0e0c0a,#171310)"></div><img src="images/img_106_2e5ae9c36c1a.png" class="real-img"></div>
+      <div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 45% 55%,rgba(196,149,90,.07) 0%,transparent 60%),linear-gradient(160deg,#0f0d0b,#191511)"></div><img src="images/img_107_96781bc02906.jpg" class="real-img"></div><div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 45% 55%,rgba(196,149,90,.07) 0%,transparent 60%),linear-gradient(160deg,#0f0d0b,#191511)"></div><img src="images/img_108_add9d7f665a9.jpg" class="real-img"></div>
+      <div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 35%,rgba(170,190,200,.045) 0%,transparent 55%),linear-gradient(140deg,#0d0c0b,#161413)"></div><img src="images/img_109_75ee687dfc37.jpg" class="real-img"></div><div class="ph" style="position:relative;"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 32% 50%,rgba(196,149,90,.09) 0%,transparent 62%),linear-gradient(155deg,#100e0b,#1a1611,#0c0a09)"></div><img src="images/img_110_b8d4cda4ff02.jpg" class="real-img"></div>
+    </div>
+  </div>
+  <div class="pn">40 / 47</div>
+</div>
+
+<div class="s" id="pr10_cover">
+  <div class="ph" style="position:absolute;top:0;left:0;width:58%;height:100%">
+    
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 35% 55%,rgba(220,170,80,.11) 0%,transparent 60%),linear-gradient(160deg,#100d0a,#1b1611,#0c0a08)"></div>
+    <div style="position:absolute;top:0;right:0;bottom:0;width:2px;background:linear-gradient(to bottom,transparent,var(--gd) 30%,var(--gd) 70%,transparent);opacity:.5"></div>
+  <img src="images/img_111_7a74a7847910.jpg" class="real-img"></div>
+  <div style="position:absolute;top:0;left:58%;right:0;bottom:0;display:flex;flex-direction:column;justify-content:center;padding:var(--pv) clamp(16px,2.5vw,36px)">
+    <div class="proj-num">10</div>
+    <div class="lns" style="width:30px;margin:clamp(10px,1.8vh,20px) 0"></div>
+    <div class="lbl" style="margin-bottom:8px;letter-spacing:.4em">Proiect 10</div>
+    <div class="head" style="font-size:clamp(14px,2vw,26px);margin-bottom:clamp(8px,1.3vh,16px)">Proiecte Suplimentare<br>Selectate</div>
+    <div class="lbl" style="color:var(--cr2);font-size:7.5px;margin-bottom:clamp(12px,2vh,22px)">Selecție · Rezidențial &amp; Comercial</div>
+    <div class="lns" style="width:30px;margin:0 0 clamp(12px,1.8vh,22px)"></div>
+    <div class="body" style="font-size:clamp(9px,.95vw,11.5px)">O selecție de proiecte realizate de-a lungul carierei — câte o imagine reprezentativă pentru fiecare, ilustrând diversitatea tipologiilor și a stilurilor abordate.</div>
+    <div style="margin-top:clamp(16px,2.5vh,28px)"><span class="tag" style="margin-right:6px">Portofoliu Extins</span></div>
+  </div>
+  <div class="pn">41 / 47</div>
+</div>
+
+<div class="s" id="pr10_grid">
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:var(--pv) var(--p);gap:clamp(8px,1.3vh,14px)">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;flex-shrink:0"><div class="head" style="font-size:clamp(16px,2.1vw,26px)">Selecție de Proiecte</div><div class="cap" style="font-size:7.5px">10 · Portofoliu Extins</div></div>
+    <div class="lns" style="flex-shrink:0"></div>
+    <div style="flex:1;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,1fr);gap:clamp(7px,1.1vh,12px)"><div style="display:flex;flex-direction:column;gap:5px"><div class="ph" style="position:relative;flex:1"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 32% 50%,rgba(196,149,90,.09) 0%,transparent 62%),linear-gradient(155deg,#100e0b,#1a1611,#0c0a09)"></div><img src="images/img_112_21b1598ec4dc.jpg" class="real-img"></div><div class="cap" style="font-size:7px;opacity:.6">Proiect 1 ·&nbsp;</div></div><div style="display:flex;flex-direction:column;gap:5px"><div class="ph" style="position:relative;flex:1"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 60% 42%,rgba(170,135,80,.08) 0%,transparent 60%),linear-gradient(150deg,#0e0c0a,#171310)"></div><img src="images/img_113_5e48c6870dfe.jpg" class="real-img"></div><div class="cap" style="font-size:7px;opacity:.6">Proiect 2 ·&nbsp;</div></div><div style="display:flex;flex-direction:column;gap:5px"><div class="ph" style="position:relative;flex:1"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 45% 55%,rgba(196,149,90,.07) 0%,transparent 60%),linear-gradient(160deg,#0f0d0b,#191511)"></div><img src="images/img_114_de10524f3412.jpg" class="real-img"></div><div class="cap" style="font-size:7px;opacity:.6">Proiect 3 ·&nbsp;</div></div><div style="display:flex;flex-direction:column;gap:5px"><div class="ph" style="position:relative;flex:1"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 35%,rgba(170,190,200,.045) 0%,transparent 55%),linear-gradient(140deg,#0d0c0b,#161413)"></div><img src="images/img_115_aa49c850cf7d.jpg" class="real-img"></div><div class="cap" style="font-size:7px;opacity:.6">Proiect 4 ·&nbsp;</div></div><div style="display:flex;flex-direction:column;gap:5px"><div class="ph" style="position:relative;flex:1"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 32% 50%,rgba(196,149,90,.09) 0%,transparent 62%),linear-gradient(155deg,#100e0b,#1a1611,#0c0a09)"></div><img src="images/img_116_0160ebe1af1c.jpg" class="real-img"></div><div class="cap" style="font-size:7px;opacity:.6">Proiect 5 ·&nbsp;</div></div><div style="display:flex;flex-direction:column;gap:5px"><div class="ph" style="position:relative;flex:1"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 60% 42%,rgba(170,135,80,.08) 0%,transparent 60%),linear-gradient(150deg,#0e0c0a,#171310)"></div><img src="images/img_117_79f61d64d7fc.jpg" class="real-img"></div><div class="cap" style="font-size:7px;opacity:.6">Proiect 6 ·&nbsp;</div></div><div style="display:flex;flex-direction:column;gap:5px"><div class="ph" style="position:relative;flex:1"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 45% 55%,rgba(196,149,90,.07) 0%,transparent 60%),linear-gradient(160deg,#0f0d0b,#191511)"></div><img src="images/img_118_ccd05c866cfa.jpg" class="real-img"></div><div class="cap" style="font-size:7px;opacity:.6">Proiect 7 ·&nbsp;</div></div><div style="display:flex;flex-direction:column;gap:5px"><div class="ph" style="position:relative;flex:1"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 35%,rgba(170,190,200,.045) 0%,transparent 55%),linear-gradient(140deg,#0d0c0b,#161413)"></div><img src="images/img_119_eda1f767e085.jpg" class="real-img"></div><div class="cap" style="font-size:7px;opacity:.6">Proiect 8 ·&nbsp;</div></div><div style="display:flex;flex-direction:column;gap:5px"><div class="ph" style="position:relative;flex:1"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 32% 50%,rgba(196,149,90,.09) 0%,transparent 62%),linear-gradient(155deg,#100e0b,#1a1611,#0c0a09)"></div><img src="images/img_120_2615203ba8a8.jpg" class="real-img"></div><div class="cap" style="font-size:7px;opacity:.6">Proiect 9 ·&nbsp;</div></div><div style="display:flex;flex-direction:column;gap:5px"><div class="ph" style="position:relative;flex:1"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 60% 42%,rgba(170,135,80,.08) 0%,transparent 60%),linear-gradient(150deg,#0e0c0a,#171310)"></div><img src="images/img_121_1df6904eb964.jpg" class="real-img"></div><div class="cap" style="font-size:7px;opacity:.6">Proiect 10 ·&nbsp;</div></div><div style="display:flex;flex-direction:column;gap:5px"><div class="ph" style="position:relative;flex:1"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 45% 55%,rgba(196,149,90,.07) 0%,transparent 60%),linear-gradient(160deg,#0f0d0b,#191511)"></div><img src="images/img_122_8edff217c05b.jpg" class="real-img"></div><div class="cap" style="font-size:7px;opacity:.6">Proiect 11 ·&nbsp;</div></div><div style="display:flex;flex-direction:column;gap:5px"><div class="ph" style="position:relative;flex:1"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 35%,rgba(170,190,200,.045) 0%,transparent 55%),linear-gradient(140deg,#0d0c0b,#161413)"></div><img src="images/img_123_aca43f3843a7.jpg" class="real-img"></div><div class="cap" style="font-size:7px;opacity:.6">Proiect 12 ·&nbsp;</div></div></div>
+  </div>
+  <div class="pn">42 / 47</div>
+</div>
+
+<div class="s" id="close_dist">
+  <div style="position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:0">
+    <div style="display:flex;flex-direction:column;justify-content:center;padding:var(--pv) var(--p);border-right:1px solid rgba(196,149,90,.15)">
+      <div class="lbl" style="margin-bottom:clamp(12px,2vh,22px);letter-spacing:.45em">Recunoaștere Profesională</div>
+      <div class="head" style="font-size:clamp(18px,2.4vw,32px);margin-bottom:clamp(12px,2vh,20px)">Distincții &amp; Educație</div>
+      <div class="lns" style="width:40px;margin:clamp(10px,1.8vh,20px) 0"></div>
+      <div class="lbl" style="font-size:8px;margin-bottom:8px">Distincții</div>
+      <div style="border-left:2px solid rgba(196,149,90,.4);padding-left:14px;margin-bottom:clamp(14px,2.2vh,24px)">
+        <div class="body" style="font-size:9px;color:var(--gd);margin-bottom:2px">2018 · Porcelanosa Grupo</div>
+        <div class="body" style="font-size:11px">Premiul III — Competiția Delta Studio 3D</div>
+        <div class="body" style="font-size:8.5px;opacity:.55">Recunoaștere pentru concepte de design interior premiate la nivel internațional.</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;justify-content:center;padding:var(--pv) clamp(18px,2.5vw,34px)">
+      <div class="lbl" style="margin-bottom:clamp(12px,2vh,20px);letter-spacing:.4em;font-size:8px">Educație &amp; Etape Profesionale</div>
+      <div style="display:flex;flex-direction:column;gap:clamp(10px,1.6vh,18px)">
+        <div style="display:flex;gap:14px"><div class="num" style="font-size:10px;min-width:54px;color:var(--gd)">2016</div><div><div class="body" style="font-size:11px">Master Arhitectură de Interior</div><div class="body" style="font-size:8.5px;opacity:.55">Universitatea de Arhitectură și Urbanism „Ion Mincu”, București — Facultatea de Arhitectură de Interior.</div></div></div>
+        <div style="display:flex;gap:14px"><div class="num" style="font-size:10px;min-width:54px;color:var(--gd)">11 ani</div><div><div class="body" style="font-size:11px">Experiență în Arhitectură de Interior</div><div class="body" style="font-size:8.5px;opacity:.55">Proiecte în România și internațional — rezidențial, comercial, retail.</div></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="pn">43 / 47</div>
+</div>
+
+<div class="s" id="close_proc">
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:var(--pv) var(--p)">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:clamp(16px,2.6vh,30px)">
+      <div>
+        <div class="lbl" style="margin-bottom:9px;letter-spacing:.48em">Mod de Lucru</div>
+        <div class="head" style="font-size:clamp(20px,2.8vw,38px)">Proces &amp; Servicii</div>
+      </div>
+      <div class="num" style="font-size:clamp(40px,5.5vw,72px);opacity:.07;line-height:1">—</div>
+    </div>
+    <div class="ln" style="margin-bottom:clamp(16px,2.6vh,30px)"></div>
+    <div style="flex:1;display:grid;grid-template-columns:1fr 1px 1fr;gap:0;overflow:hidden">
+      <div style="padding-right:clamp(20px,3vw,44px)">
+        <div class="lbl" style="margin-bottom:clamp(12px,1.9vh,20px);letter-spacing:.48em">Metodologie</div>
+        <div style="display:flex;flex-direction:column;gap:clamp(12px,1.8vh,20px)">
+          <div style="display:flex;align-items:baseline;gap:14px"><div class="num" style="color:var(--gd);font-size:13px;min-width:20px">01</div><div><div class="body" style="font-size:11px">Brief &amp; Concept</div><div class="body" style="font-size:8.5px;opacity:.55">Înțelegerea nevoilor, definirea conceptului spațial și a limbajului de design.</div></div></div>
+          <div style="display:flex;align-items:baseline;gap:14px"><div class="num" style="color:var(--gd);font-size:13px;min-width:20px">02</div><div><div class="body" style="font-size:11px">Proiectare &amp; Vizualizare</div><div class="body" style="font-size:8.5px;opacity:.55">Planuri, mood boards și randări fotorealiste pentru validarea soluției.</div></div></div>
+          <div style="display:flex;align-items:baseline;gap:14px"><div class="num" style="color:var(--gd);font-size:13px;min-width:20px">03</div><div><div class="body" style="font-size:11px">Documentație Tehnică</div><div class="body" style="font-size:8.5px;opacity:.55">Planuri de execuție, detalii de mobilier și specificații complete.</div></div></div>
+          <div style="display:flex;align-items:baseline;gap:14px"><div class="num" style="color:var(--gd);font-size:13px;min-width:20px">04</div><div><div class="body" style="font-size:11px">Execuție &amp; Predare</div><div class="body" style="font-size:8.5px;opacity:.55">Coordonare de șantier, control calitate și livrarea proiectului finalizat.</div></div></div>
+        </div>
+      </div>
+      <div class="ln" style="height:100%"></div>
+      <div style="padding-left:clamp(20px,3vw,44px)">
+        <div class="lbl" style="margin-bottom:clamp(12px,1.9vh,20px);letter-spacing:.48em">Ce Ofer</div>
+        <div style="display:flex;flex-direction:column;gap:clamp(8px,1.3vh,14px)">
+          <div style="display:flex;align-items:center;gap:14px"><div style="width:20px;height:1px;background:var(--gd);opacity:.9;flex-shrink:0"></div><div class="body" style="font-size:9.5px">Design Concept — dezvoltare spațială, mood boards, planificare funcțională</div></div>
+          <div style="display:flex;align-items:center;gap:14px"><div style="width:20px;height:1px;background:var(--gd);opacity:.8;flex-shrink:0"></div><div class="body" style="font-size:9.5px">Vizualizare 3D — randări fotorealiste (Corona), tururi 360°, animații</div></div>
+          <div style="display:flex;align-items:center;gap:14px"><div style="width:20px;height:1px;background:var(--gd);opacity:.7;flex-shrink:0"></div><div class="body" style="font-size:9.5px">Documentație Tehnică — planuri, elevații, secțiuni, detalii de execuție</div></div>
+          <div style="display:flex;align-items:center;gap:14px"><div style="width:20px;height:1px;background:var(--gd);opacity:.6;flex-shrink:0"></div><div class="body" style="font-size:9.5px">Mobilier la Comandă — design de tâmplărie și detaliere pe comandă</div></div>
+          <div style="display:flex;align-items:center;gap:14px"><div style="width:20px;height:1px;background:var(--gd);opacity:.5;flex-shrink:0"></div><div class="body" style="font-size:9.5px">Management de Proiect — supraveghere șantier si coordonare&nbsp;</div></div>
+          <div style="display:flex;align-items:center;gap:14px"><div style="width:20px;height:1px;background:var(--gd);opacity:.4;flex-shrink:0"></div><div class="body" style="font-size:9.5px">Design Interior Complet — serviciu integral, de la brief la predare</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pn">XX / XX</div>
+</div>
+
+<div class="s" id="close_contact">
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:var(--pv) var(--p);text-align:center">
+    <div class="stag"></div>
+    <div class="lbl" style="letter-spacing:.5em;margin-bottom:clamp(14px,2.4vh,26px)">Contact</div>
+    <div class="disp" style="font-size:clamp(30px,5vw,68px);margin-bottom:clamp(10px,1.6vh,18px)">Alma Raluca Mihu</div>
+    <div class="body" style="font-size:clamp(10px,1.1vw,13px);opacity:.6;margin-bottom:clamp(18px,3vh,34px)">Arhitect de Interior · 11 ani experiență</div>
+    <div class="lns" style="width:70px;margin:0 auto clamp(16px,2.6vh,30px)"></div>
+    <div style="display:grid;grid-template-columns:80px 1fr;gap:clamp(10px,1.5vw,22px) clamp(14px,2vw,30px);align-items:baseline;text-align:left">
+      <div class="lbl" style="font-size:8px;text-align:right">Studio</div><div class="body" style="font-size:clamp(10px,1.1vw,13px)">A Interior Architecture &amp; Design SRL — Otopeni, România</div>
+      <div class="lbl" style="font-size:8px;text-align:right">Email</div><div class="body" style="font-size:clamp(10px,1.1vw,13px)">alma.mihu@gmail.com</div>
+      <div class="lbl" style="font-size:8px;text-align:right">Telefon</div><div class="body" style="font-size:clamp(10px,1.1vw,13px)">+40 721 172 272</div>
+      <div class="lbl" style="font-size:8px;text-align:right">Behance</div><div class="body" style="font-size:clamp(10px,1.1vw,13px)">behance.net/almamihud8c2</div>
+      <div class="lbl" style="font-size:8px;text-align:right">LinkedIn</div><div class="body" style="font-size:clamp(10px,1.1vw,13px)"><p class="MsoNormal">www.linkedin.com/in/alma-mihu<o:p></o:p></p></div>
+    </div>
+    
+    <div class="sbot"></div>
+  </div>
+  <div class="pn">47 / 47</div>
+</div></div><!-- end #deck -->
+
+<!-- NAVIGATION -->
+<nav id="nav">
+  <button class="nb" id="btnPrev">← Prev</button>
+  <div id="nc">01 / 52</div>
+  <button class="nb" id="btnNext">Next →</button>
+</nav>
+
+<script>
+(function(){
+  /* ══ NAVIGATION ══ */
+  const slides = document.querySelectorAll('.s');
+  const total = slides.length;
+  const counter = document.getElementById('nc');
+  const pgbar = document.getElementById('pgbar');
+  let cur = 0;
+  counter.textContent='01 / '+String(total).padStart(2,'0');
+  if(pgbar) pgbar.style.width=(1/total*100)+'%';
+
+  function goTo(n){
+    slides[cur].classList.remove('on');
+    cur = ((n%total)+total)%total;
+    slides[cur].classList.add('on');
+    counter.textContent = String(cur+1).padStart(2,'0')+' / '+String(total).padStart(2,'0');
+    pgbar.style.width = ((cur+1)/total*100)+'%';
+  }
+  document.getElementById('btnNext').onclick = ()=>goTo(cur+1);
+  document.getElementById('btnPrev').onclick = ()=>goTo(cur-1);
+
+  let x0=null;
+  document.addEventListener('touchstart',e=>{x0=e.touches[0].clientX},{passive:true});
+  document.addEventListener('touchend',e=>{
+    if(x0===null)return;
+    const dx=e.changedTouches[0].clientX-x0;
+    if(Math.abs(dx)>40){dx<0?goTo(cur+1):goTo(cur-1);}
+    x0=null;
+  });
+
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' ')goTo(cur+1);
+    if(e.key==='ArrowLeft'||e.key==='ArrowUp')goTo(cur-1);
+  });
+
+  })();
+</script>
+
+
+
+<script>
+(function(){
+  function syncDots(){
+    document.querySelectorAll('.pal-dot').forEach(function(inp){
+      if(!inp.getAttribute('value')) inp.setAttribute('value', inp.value);
+      if(inp.dataset.bound) return; inp.dataset.bound='1';
+      var sync=function(){ inp.setAttribute('value', inp.value); };
+      inp.addEventListener('input', sync);
+      inp.addEventListener('change', sync);
+    });
+  }
+  if(document.readyState!=='loading') syncDots();
+  else document.addEventListener('DOMContentLoaded', syncDots);
+})();
+</script>
+
+</body></html>
